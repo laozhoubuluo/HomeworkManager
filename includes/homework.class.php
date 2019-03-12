@@ -34,7 +34,7 @@ class Homework_class extends Bila_base_class {
   {//新增根据正则表达式判断学号是否正确，标准化命名需求。
     $sql = "select `cidRegex` from `hwList` where `hID`={$hID} limit 1";
     $row= $this->DB->GetRow( $sql );
-    if($row['cidRegex'] == '' || preg_match($row['cidRegex'], $cID)){
+    if($row['cidRegex'] == '' || ($row['cidRegex'] != '' && preg_match($row['cidRegex'], $cID))){
       return true;
     }else{
       return false;

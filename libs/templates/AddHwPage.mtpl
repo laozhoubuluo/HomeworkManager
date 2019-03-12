@@ -49,6 +49,7 @@ $("#sb1").click(function(){
    <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
 </td></tr>
 <tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="20" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
+<tr><td>学号正则表达式</td><td><input name="cidRegex" id="cidRegex" size="255" maxlength="12" type="text" value="" /><font class="docfont"> 说明：提交作业时会自动利用preg_match按照此处设定的正则表达式进行判断，如不需要请留空。</font></td></tr>
 <tr><td>作业描述</td><td><textarea name="remark" cols="80" rows="6" id="remark"></textarea><br />
 <font class="docfont">作业描述会显示在前台给上传者观看，限定1000个字元。</font>
 </td></tr>

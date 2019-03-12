@@ -34,7 +34,7 @@ define('SITE_URL', "http://". SITE_DN ."/homework/");  // 修改网站位址，�
 
 define('UPDIR', "upload/");
 
-define('UPLOAD_DIR', str_replace('includes/init.php', '', $_SERVER['SCRIPT_FILENAME']).UPDIR ); //修改上传位址
+define('UPLOAD_DIR', "/var/www/html/homework/".UPDIR ); //修改上传位址
 
 define('TEMP_PATH', "temp/");
 

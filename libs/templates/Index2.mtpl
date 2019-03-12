@@ -21,7 +21,7 @@ $("#sb2").click(function(){
 <body style="text-align:center;">
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 作业列表</div>
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业列表</div>
 </div>
 
 

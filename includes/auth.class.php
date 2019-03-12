@@ -145,15 +145,6 @@ class Auth_class extends Bila_base_class {
     //Session 取出结束
   }
 
-  public function Tc_Auth($arr){
-    $_SESSION['usID']=$arr['email'];
-    $_SESSION['cname']=$arr['fullname'];
-    $_SESSION['email']=$arr['email'];
-    $this->LogLogin("id={$arr['email']},auth=tc,st=success");
-    $this->SetSession($_SESSION);
-    return 1;
-  }
-
     public function ProcAddNewRole( $arr ){
         if( empty($arr) || !is_array($arr)) return -1;
         if( !$this->LogManage( "{$arr['rolename']}")) return -2;

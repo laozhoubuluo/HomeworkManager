@@ -1,6 +1,6 @@
 </div>
 <div id="contentBottom">
-&copy; <a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a>. <a href="https://github.com/laozhoubuluo/HomeworkManage" target="_blank">Fork me!</a>
+&copy; <a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a>. <a href="https://github.com/laozhoubuluo/HomeworkManager" target="_blank">Fork me!</a>
 </div>
 </div> <!-- Body inlines -->
 </body>

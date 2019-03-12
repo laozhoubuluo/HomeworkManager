@@ -52,7 +52,7 @@ $(".scoreText").change(function(){
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <b>{{$d.hwTitle}}</b></div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <b>{{$d.hwTitle}}</b></div>
 </div>
 
 <div style="text-align:left;">
@@ -83,7 +83,7 @@ $(".scoreText").change(function(){
   {{if $e.passed eq 1 }}<div class="hwUnitDiv passedDiv">{{else}}<div class="hwUnitDiv">{{/if}}
     <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}" target="_blank">
     <img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block;  margin:0 10px 5px 0; padding-bottom:10px; width:120px; height:120px;" alt="{{$e.fileName}}" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}} [{{$e.modPasswd}}]" /></a>
-<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><h4><span>{{$e.oFileName}}</span></h4><br /><h4>{{$e.uDT}}</h4><br />
+<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cid|default:'不公开'}}</h5><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><h4><span>{{$e.oFileName}}</span></h4><br /><h4>{{$e.uDT}}</h4><br />
   <h4>评分 <input type="text" size="6" value="{{$e.score}}" snc="{{$e.vc}}" maxlength="4" class="scoreText" /></h4>
 <br />
   <a href="javascript:void(0);" class="hwopA" o="ex" sn="{{$e.exc}}">{{if $e.display eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star.png" alt="展示" width="16" height="16" />{{else}}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star_gray.png" alt="不展示" width="16" height="16" />{{/if}}</a>

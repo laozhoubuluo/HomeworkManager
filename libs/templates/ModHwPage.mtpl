@@ -48,11 +48,12 @@ $("#sb1").click(function(){
 <tr bgcolor="#E1DFE2"><td>作业标题名称 *</td><td><input name="hwTitle" id="hwTitle" size="50" maxlength="50" type="text" value="{{$a.hwTitle}}" /></td></tr>
 <tr><td>上传作业密码 </td><td><input name="passwd" id="passwd" size="12" maxlength="12" type="text" value="{{$a.passwd}}" /><font class="docfont"> 说明：学生上传作业需输入此密码。</font></td></tr>
 <tr><td>班级/群组</td><td><input name="classID" id="classID" size="12" maxlength="12" type="text" value="{{$a.classID}}" /><font class="docfont"> 说明：同个班级在作业列表时会折叠起来，因此可加注学年，例"101学年1年2班"、"2甲[101]"、"101电脑测验"，如不折叠请留空。</font></td></tr>
-<tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="{{$a.rank}}" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
 <tr bgcolor="#E1DFE2"><td>上传作业有效日期 *</td><td>
   <div>自 <input name="from" id="from" value="{{$a.fromDT}}" readonly type="text" size="20"/> 至 <input name="to" id="to" value="{{$a.dueDT}}" readonly type="text" size="20" /></div>
    <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
 </td></tr>
+<tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="{{$a.rank}}" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
+<tr><td>学号正则表达式</td><td><input name="cidRegex" id="cidRegex" size="255" maxlength="12" type="text" value="{{$a.cidRegex}}" /><font class="docfont"> 说明：提交作业时会自动利用preg_match按照此处设定的正则表达式进行判断，如不需要请留空。</font></td></tr>
 <tr><td>作业描述</td><td><textarea name="remark" cols="80" rows="6" id="remark">{{$a.remark}}</textarea><br />
 <font class="docfont">作业描述会显示在前台给上传者观看，限定1000个字元。</font>
 </td></tr>

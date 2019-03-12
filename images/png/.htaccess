@@ -1,0 +1,5 @@
+RewriteEngine on
+#RewriteBase /images/png/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*)\.png noset.png [L]
+

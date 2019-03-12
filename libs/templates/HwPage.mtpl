@@ -1,0 +1,155 @@
+{{include file='Header.mtpl'}}
+{{assign var='d' value=$obj->GetOneHw($hID) }}
+
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/blockUI/jquery.blockUI.js"></script>
+<script type="text/javascript">
+$(function() {
+  $("#sb1").click(function(){
+    var msg="";
+    if( $("#fn").val() == "") msg += "请选择上档案\n";
+    if( $("#cname").val() == "") msg += "上传人姓名必填\n"; 
+    if( $("#passwd").val() == "") msg += "删除及修改密码必填\n";
+    if( msg != ""){ alert( "错误：\n" +msg); return false; }
+  });
+{{if $d.upPasswd eq 1 }}
+  $("#sb1").attr("disabled", true);
+  $("#sb1").val(" 上传需要密码，请先进行密码验证 ");
+
+{{/if}}
+  $(".cancel").click(function(){$.unblockUI();});
+  $.blockUI.defaults.css.cursor = 'text';
+  $.blockUI.defaults.css.top= '180px';
+  setTimeout($.unblockUI, 60000*60);  //1HR
+  $(".hwopA").click(function(){
+    $("#ownetH").html("档案拥有人： "+$(this).prevUntil(".hwUnitDiv","h5").text()) ;
+    $("#hIDc").val($(this).attr("sn"));
+    $("#opHw").val($(this).attr("o"));
+    if($(this).attr("o") =='d' && !confirm("删除后无法复原，是否确定删除？"))return false;
+    $.blockUI.defaults.css.width = '450px';
+    $.blockUI({ message: $('#verifypwdDiv') });
+    return false;
+  });
+  $("#chkpasswdbtn").click(function(){
+    if( $("#upPasswd").val()==""){ alert("请输入密码进行验证"); return false;}
+    var pw= $("#upPasswd").val();
+    $.ajax({ url: 'homework.php',cache: false, dataType: 'html', type:'POST',
+    data: { sn:{{$hID}}, p: pw, f:"ChkCanUpload" }, error: function(xhr) { alert('Ajax request 发生错误'+ xhr); },
+    success: function(response) {
+      if(response>0){ $("#sb1").attr("disabled", false); $("#sb1").val(" 上传 "); }
+      else alert("验证失败，密码错误！"); }
+    });
+  });
+});
+</script>
+</head>
+
+
+
+</head>
+<body>
+{{include file='Banner.mtpl'}}
+<div style="height:32px;">
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; {{$d.hwTitle}}</div>
+</div>
+
+<div style="text-align:left;">
+
+<h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
+<table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:11pt;">
+<tr><td><small>[{{$d.hID}}]</small> 发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}} 通过件数 {{$d.passedCnt}} 点阅 {{$d.clicked}}</td><td>最后更新 {{$d.uDT}} <b>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</b></td>
+<td>{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=eye.png" alt="开放访客参观" width="24" height="24" />{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=disconnect.png" alt="关闭中作业" width="24" height="24">{{/if}} {{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=lock.png" alt="上传需要密码"  width="24" height="24" />{{/if}}</td>
+</tr></table>
+<table width="100%">
+{{if $d.canUpload eq 1 }}
+<tr><td>
+<div style="font-size:11pt; line-height:30px; padding:5px; background-color:#D6E1FF;">
+<B>上传作业 </B>
+<form action="{{$smarty.const.SITE_URL}}homework.php" id="up" method="post" enctype="multipart/form-data">
+{{if $d.upPasswd eq 1 }}<div style="background-color:#970862;color:white; display:block;">上传需要密码，请输入上传密码：
+<input type="text" name="upPasswd" id="upPasswd" value="" size="12" maxlength="12"  /> <input type="button" id="chkpasswdbtn" value="验证" /></div>
+{{/if}}
+
+<input name="MyFile" id="fn" type="file" size="44" /> <font class="warningfont">最大可上传档案大小 {{$maxsize}}</font><br />
+<input type="hidden" name="f" value="UploadHw" />
+<input type="hidden" name="hID" value="{{$d.hID}}" />
+上传人姓名 * <input type="text" name="cname" id="cname" value="" size="12" maxlength="12"  /> <br />
+上传文件说明 <input type="text" name="remark" value="" size="60" maxlength="100"  /> <font class="docfont">文件说明限订最多100个字</font><br />
+请输入删除及修改密码 * <input type="text" name="passwd" id="passwd" value="" size="12" maxlength="12" />  <font class="warningfont">最大长度为12，此栏为未来修改及删除的依据</font><br />
+<input id="sb1" type="submit" value="上传" /></form>
+</div>
+</td></tr>
+{{else}}
+<tr><td height="60">
+<span style="padding:10px; background-color:#745220; color:white;">非上传时间无法上传</span>
+</td></tr>
+{{/if}}
+{{if $d.closed eq 1 }}
+<tr><td height="60">
+<span style="padding:10px; background-color:#863330; color:white;">此作业已经关闭，不开放上传</span>
+</td></tr>
+{{/if}}
+{{if $d.display eq 0 }}
+<tr><td height="60">
+<span style="padding:10px; background-color:#563380; color:white;">此作业不开放参观，仅列出上传列表，下载修改及删除应输入上传时设定之密码。</span>
+</td></tr>
+{{/if}}
+
+<tr><td>
+{{$d.remark}}
+</td></tr>
+<tr><td>
+<div style="margin-top:10px;">
+  {{foreach from=$obj->GetUploadHwList($hID) item=e}}
+  {{if $e.passed eq 1 }}<div class="hwUnitDiv passedDiv">{{else}}<div class="hwUnitDiv">{{/if}}
+    {{if $d.display eq 1 }}
+    <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block; margin-left:10px;" width="120" height="120" /></a>
+<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过" width="16" height="16" />{{/if}}<H4>{{$e.oFileName}} {{$e.size}}bytes {{$e.uDT}}</h4><br />
+    <h4>评分：{{$e.score|default:'无'}}</h4>
+    {{else}}
+    <img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png"  style="display:block; margin-left:10px;"  width="120" height="120" />
+    <h5>{{$e.cname|default:'不公开'}}</h5>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" />{{/if}}<br /><H4><font style="color:#B10B4E;">{{$e.oFileName}}</font> {{$e.size}}bytes {{$e.uDT}}</h4>
+    {{/if}}
+    <br />
+  {{if $d.canUpload eq 1 }}    
+    [<a href="javascript:void(0);" class="hwopA" o="dl" sn="{{$e.vc}}">下载</a>] [<a href="javascript:void(0);" class="hwopA"  o="m" sn="{{$e.vc}}">修改</a>] [<a href="javascript:void(0);" class="hwopA" o="d" sn="{{$e.vc}}">删除</a>]
+    <br />
+  {{else}}
+	  {{if $d.display eq 1 }}
+		[<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&c={{$e.vc}}">下载</a>]
+	  {{else}}
+		[<a href="javascript:void(0);" class="hwopA" o="dl" sn="{{$e.vc}}">下载</a>]
+	  {{/if}}
+  {{/if}}
+
+  </div>
+  {{/foreach}}
+</div>
+</td></tr>
+<tr><td style="padding-top:10px; color:#555;">
+  绿色底：已通过作业
+</td></tr>
+</table>
+
+
+</div>
+
+    <!-- BlockUI -->
+    <div id="verifypwdDiv" style="display:none; height:180px; width:500px; padding:20px; text-align:left;">
+     <h3>输入「{{$d.hwTitle}}」之密码</h3>
+     <h4 id="ownetH" style="color:#FC7500;"></h4>
+     <form name="f1" action="{{$smarty.const.SITE_URL}}homework.php" method="post">
+     <input name="f" value="DoMyHw" type="hidden" />
+     <input name="c" id="hIDc" value="" type="hidden" />
+     <input name="o" id="opHw" value="" type="hidden" />
+     <input name="passwd" id="passwd" value="" type="password" />
+     <br/><br />
+     <input id="sb4" style="margin:10px 0 10px 10px;" value=" 送出 " type="submit" />  <input type="button" value="取消" class="cancel" />
+     </form>
+    </div> <!-- End of BlockUI -->
+
+
+
+{{include file='Footer.mtpl'}}
+{{$obj->RecHwPgCnt($hID)}}
+</body>
+

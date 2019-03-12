@@ -1,0 +1,54 @@
+<div  align="center">
+<div style="text-align:left; width:1005px;">
+<div class="headerDiv">
+  <table  align="left" valign="top" style="vertical-align:top;display:block; height:129px;" width="100%">
+  <tr><td width="190">
+  <div><a href="{{$smarty.const.SITE_URL}}" title="精讚版作业上传logo"><img src="{{$smarty.const.SITE_URL}}images/index/hwlogo.gif"  alt="精讚版作业上传logo"></a></div></td>
+  <td class="headerTD">
+    <div style="width:580px; margin-left:4px; height:36px; margin-top:8px; color:#720404; font-size:15px;">
+     <img src="{{$smarty.const.SITE_URL}}images/index/findhwtxt.gif" alt="寻找作业" width="80" height="22" />
+       <form action="{{$smarty.const.SITE_URL}}?f=List" name="f1" method="post" id="f1" style="display:inline">
+      <input type="hidden" name="f" value="List" />
+      <input type="hidden" name="stp" id="stp" value="1" />
+      <input type="hidden" name="hs" id="hs" value="" />
+      <input id="hkw" name="hkw" type="text" size="14" maxlength="14" value="" style="width:120px; background:transparent; height:22px; font-size:17px; color:#720404;" />
+      <input id="hsb2" type="submit" value="筛选" style="color:white; background-color:#B03A3A; padding:4px 0 3px 4px; font-size:15px; letter-spacing:2px"  />
+      <input type="button" onclick="location.href='{{$smarty.const.SITE_URL}}'; return false;" value="重设"  style="color:white; background-color:#999; padding:4px 0 2px 3px; font-size:15px; letter-spacing:2px" />
+      <input name="_display" id="_display" type="hidden" value="0" />
+      <input name="_thissem" id="_thissem" type="hidden" value="0" />
+      </form>
+     <img src="{{$smarty.const.SITE_URL}}images/index/nametxt.gif" alt="姓名" style="margin-left:20px;" width="40"  />
+{{if isset($smarty.session.email)}}
+  <div style="float:right; width:200px;margin-top:7px; text-align:left; color:#012C56;">{{$smarty.session.cname}} [<a href="{{$smarty.const.SITE_URL}}auth.php?f=Logout">登出</a>]</div>
+{{else}}无名氏 [<a href="{{$smarty.const.SITE_URL}}index.php?f=Login">登入</a>]{{/if}}
+   </div>
+    <div class="hearderMenuDiv">
+     <img src="{{$smarty.const.SITE_URL}}images/index/penhat.gif" alt="作业展示" />
+    {{if isset($f) && $f eq 'Exhibition'}}[<span class="onHover">作业展示</span>]{{else}}
+      <a href="{{$smarty.const.SITE_URL}}?f=Exhibition" title="作业展示">作业展示</a>
+    {{/if}}
+     <img src="{{$smarty.const.SITE_URL}}images/index/penlist.gif" alt="作业列表" />
+    {{if isset($f) && $f eq 'List'}}[<span class="onHover">作业列表</span>]{{else}}
+      <a href="{{$smarty.const.SITE_URL}}?f=List" title="作业列表">作业列表</a>
+    {{/if}}
+     <img src="{{$smarty.const.SITE_URL}}images/index/penabout.gif" alt="关于" />
+    {{if  isset($f) && $f eq 'About'}}[<span class="onHover">关于</span>]{{else}}
+      <a href="{{$smarty.const.SITE_URL}}?f=About" title="关于">关于</a>
+    {{/if}}
+{{if isset($smarty.session.email)}}
+     <img src="{{$smarty.const.SITE_URL}}images/index/pen.gif" alt="作业管理" />
+    {{if  isset($f) && $f eq 'HW'}}[<span class="onHover">作业管理</span>]{{else}}
+      <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework" title="作业管理">作业管理</a>
+    {{/if}}
+     <img src="{{$smarty.const.SITE_URL}}images/index/penman.gif" alt="帐号管理" />
+    {{if  isset($f) && $f eq 'AccManage'}}[<span class="onHover">帐号管理</span>]{{else}}
+      <a href="{{$smarty.const.SITE_URL}}manage.php?f=AccManage" title="帐号管理">帐号管理</a>
+    {{/if}}
+{{/if}}
+   </div>
+
+  </td><td align="right"><img src="{{$smarty.const.SITE_URL}}images/index/esbook.gif" alt="小学作业簿" /></td></tr>
+</table><br />
+</div>  <!--  End headerDiv -->
+<div id="contentTop"></div>
+<div id="contentMid">

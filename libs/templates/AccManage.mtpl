@@ -1,0 +1,97 @@
+{{include file='Header.mtpl'}}
+
+<link type="text/css" rel="stylesheet" href="{{$smarty.const.SITE_URL}}js/validator/validator.css"></link>
+
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/dyniframesize.js"></script>
+<script src="{{$smarty.const.SITE_URL}}js/validator/formValidator_min.js" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/datepicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function() {
+$("#sb1").click(function(){
+  var msg="";
+  if($("#superpasswd").val()=="")msg += "超级密码必填\n";
+  if($("#email").val()=="")msg += "信箱名称必填\n";
+  if($("#cname").val()=="")msg += "会员姓名必填\n";
+  if( $("#passwdz").val()=="" ){ $("#passwdz").focus(); msg += "你未填入密码\n"; }
+  if( $("#passwdz").val() !=  $("#passwdz2").val()){
+    msg += "确认密码和密码不相同，请重新输入";
+    $("#passwdz2").focus();
+  }
+  if(msg =="")return true;
+  alert("错误：\n"+msg);
+  return false;
+});
+$("#sb3").click(function(){
+  var msg="";
+  if($("#superpasswd2").val()=="")msg += "超级密码必填\n";
+  if($("#email2").val()=="")msg += "信箱名称必填\n";
+  if(msg =="")return true;
+  alert("错误：\n"+msg);
+  return false;
+});
+});
+</script>
+
+<body>
+{{include file='Banner.mtpl'}}
+
+<div style="height:32px;">
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 帐号管理</div>
+  <div style="float:right; width:300px; text-align:right;"></div>
+</div>
+<div style="height:290px;  display:block">
+<div style="line-height:33px; width:660px; float:left; height:280px;  ">
+<fieldset style="text-align:left;">
+<legend><b>新增帐号</b></legend>
+
+<form method="post" action="{{$smarty.const.SITE_URL}}manage.php">
+  <input type="hidden" value="AddAccount" name="f" />
+  <span style="background-color:#9D0712; color:white">超级密码</span> * <input id="superpasswd" name="superpasswd" value="" maxlength="16" size="16" type="text" />   <font class="noticefont">超级密码设定在 includes/init.php 中</font><br>
+  会员信箱 * <input id="email" name="email" value="" maxlength="60" size="26" type="text" />
+  <font class="noticefont">登入的帐号</font>
+  <br />
+  会员代号 <input id="usID" name="usID" value="" maxlength="18" size="22" type="text" />
+  <font class="noticefont">使用者的别名，显示在会员前台的留言上。</font>
+  <br />
+  会员姓名 * <input id="cname" name="cname" value="" maxlength="16" size="20" type="text" />
+  <font class="noticefont">使用者姓名，会显示在作业拥有者栏位。</font>
+  <br />
+  输入密码 * <input name="passwd" id="passwdz" value="" type="password" size="14" maxlength="16" /><br />
+  再次输入密码 * <input name="passwd2" id="passwdz2" value="" type="password" size="14" maxlength="16" /><br />
+  <input type="submit" id="sb1" value="新增帐号" style="height:24px; margin:10px 10px 10px 10px;" />
+</form>
+</legend>
+</div>
+
+<div style="line-height:28px; height:280px; width:300px; margin-right:10px;float:right; overflow-x: hidden;overflow-y:scroll;">
+<fieldset style="text-align:left;">
+<legend><b>现有帐号</b></legend>
+{{foreach from=$obj->GetMemberList() item=b }}
+{{$b}}<br />
+{{/foreach}}
+</legend>
+</div>
+
+</div>
+
+<div style="line-height:33px; display:block">
+<fieldset style="text-align:left;">
+<legend><b>删除帐号</b></legend>
+
+<form method="post" action="{{$smarty.const.SITE_URL}}manage.php">
+  <input type="hidden" value="DelAccount" name="f" />
+  <span style="background-color:#9D0712; color:white">超级密码</span> * <input id="superpasswd2" name="superpasswd" value="" maxlength="16" size="16" type="text" />   <font class="noticefont">超级密码设定在 init.php 中</font><br>
+  要删除的会员信箱 * <input id="email2" name="email" value="" maxlength="60" size="26" type="text" />
+  <br />
+  <input type="submit" id="sb3" value="删除帐号" style="height:24px; margin:10px 10px 10px 10px;" />
+</form>
+
+</fieldset>
+
+</div>
+
+
+
+{{include file='Footer.mtpl'}}
+
+</body>

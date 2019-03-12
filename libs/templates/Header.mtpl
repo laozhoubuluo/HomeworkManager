@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="ALL" />
+<meta name="revisit-after" content="1" />
+<meta name="keywords" content="作业上传, 学生作业上传精简版, homework upload" />
+<meta name="description" content="学生作业上传精简版 " />
+<title>学生作业上传</title>
+<link href="{{$smarty.const.SITE_URL}}images/css/hw.css" rel="stylesheet" type="text/css" />
+<script src="{{$smarty.const.SITE_URL}}libs/jquery-1.8.0.min.js" type="text/javascript"></script>
+<link rel="SHORTCUT ICON" href="{{$smarty.const.SITE_URL}}favicon.ico" />
+<script type="text/javascript">
+$(function() {
+  $(":text, :password").css({border: "2px solid #ccc", background: "#FCE8E8"});
+  $(":text, :password").focus(function(){ $(this).css({border: "2px solid #9E0000"});});
+  $(":text, :password").blur(function(){ $(this).css({border:"2px solid #ccc", background: "#FCE8E8"}); });
+});
+</script>
+

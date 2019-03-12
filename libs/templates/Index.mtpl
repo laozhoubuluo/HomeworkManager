@@ -1,0 +1,109 @@
+{{include file='Header.mtpl'}}
+
+{{assign var='b' value=$obj->GetTableArr()}}
+
+<script src="{{$smarty.const.SITE_URL}}js/cookie/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+$("#hkw").val("{{$b.hkw}}");
+if($.cookie('odr')==null)$.cookie('odr',0);
+if( !{{$b._display|default:0}} )$("#_display").attr("checked",false); else $("#_display").attr("checked",true);
+if( !{{$b._thissem|default:0}} )$("#_thissem").attr("checked",false); else $("#_thissem").attr("checked",true);
+$("#hsb2").click(function(){
+  _display= (typeof($("input[name=_display]:checked").val()) == "undefined" )? "0":"1";
+  _thissem= (typeof($("input[name=_thissem]:checked").val()) == "undefined" )? "0":"1";
+  var s="_display="+_display + ",_thissem="+_thissem;
+  $("#s").val(s);
+});
+$(".folding").click(function(){ var disdiv= $(this).next().next().next();
+  var arr=[];  var clzid= disdiv.attr("id");
+  if(disdiv.css("display")=="none"){disdiv.css("display", "block"); $(this).attr("src","{{$smarty.const.SITE_URL}}images/node/del.gif");
+    if($.cookie('clzarr') !=null){ arr=$.cookie('clzarr').split(','); arrpull(arr,clzid);}
+  } 
+  else{ disdiv.css("display", "none"); $(this).attr("src","{{$smarty.const.SITE_URL}}images/node/add.gif");
+    if($.cookie('clzarr') !=null)arr=$.cookie('clzarr').split(','); 
+    arrpush(arr,clzid); 
+//alert($.cookie('clzarr'));
+  }
+});
+//openall/closeall
+$(".opbar > span").click(function(){ var id=$(this).attr("id"); 
+  if(id=="openall"){ $(".folding").each(function(){ var disdiv= $(this).next().next().next(); disdiv.css("display", "block"); $(this).attr("src","{{$smarty.const.SITE_URL}}images/node/del.gif"); }); $.cookie('clzarr',''); }
+  else{ var arr=[]; $(".folding").each(function(){ var disdiv= $(this).next().next().next(); disdiv.css("display", "none"); $(this).attr("src","{{$smarty.const.SITE_URL}}images/node/add.gif"); clzid= disdiv.attr("id"); arr.push(clzid); }); var str=arr.join(','); $.cookie('clzarr',str); }
+});
+
+if($.cookie('clzarr') !=null){ var arr=$.cookie('clzarr').split(',');
+  $(".folding").each(function(){ var disdiv= $(this).next().next().next(); 
+    if( itemexist(arr,disdiv.attr("id"))){
+disdiv.css("display", "none"); $(this).attr("src","{{$smarty.const.SITE_URL}}images/node/add.gif");  }
+});
+ }
+$(".sortbar > span").click(function(){ 
+   var url=$(this).children().attr("href");
+   var params= getQueryParams(url);
+   var oodr= $.cookie('odr');
+   var nodr= params['odr'];
+   if( nodr==oodr){ nodr *= -1;
+     url=url.replace("odr="+oodr,"odr="+nodr);
+     $(this).children().attr("href", url );
+   }
+   $.cookie('odr', nodr );
+});
+function getQueryParams(qs) {  //from http://stackoverflow.com/questions/979975/how-to-get-the-value-from-url-parameter
+  qs = qs.split("+").join(" ");
+  var params = {}, tokens, re = /[?&]?([^=]+)=([^&]*)/g;
+  while (tokens = re.exec(qs)) {
+    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+  }
+  return params;
+}
+function arrpush(arr,v){ if( itemexist(arr,v))return; arr.push(v); var str= arr.join(",");  $.cookie('clzarr',str); }
+function arrpull(arr,v){
+  if( !itemexist(arr,v))return;
+  var idx= arr.lastIndexOf(v); arr.splice(idx,1);
+  var str= arr.join(",");
+  $.cookie('clzarr',str);
+}
+function itemexist(arr,v){ if(arr.lastIndexOf(v)==-1)return false;  return true;}
+});
+</script>
+</head>
+
+<body style="text-align:center;">
+{{include file='Banner.mtpl'}}
+
+<div style="text-align:left;">
+<div style="display:inline-block; height:35px; margin-right:30px;" class="opbar"><span id="openall">全展开</span> <span id="closeall">全收缩</span></div>
+<div style="display:inline-block" class="sortbar">排序方式 <span><a href="{{$smarty.const.SITE_URL}}index.php?c={{$c}}&amp;odr=8">群组</a></span> 
+<span><a href="{{$smarty.const.SITE_URL}}index.php?c={{$c}}&amp;odr=9">有异动</a></span> 
+<span><a href="{{$smarty.const.SITE_URL}}index.php?c={{$c}}&amp;odr=7">建立时间</a></span></div>
+<table border="0" width="975">
+ {{assign var='ii' value=1 }}
+{{foreach from=$obj->GetHwGroupList() item=b}}
+<tr><td height="30"><img src="{{$smarty.const.SITE_URL}}images/node/del.gif" width="20" class="folding" />
+  <div style="display:inline-block; min-width:130px; background-color:#DED7CA; color:#333; vertical-align:top; font-weight:bold; font-size:16px; padding-left:5px; padding-right:10px;">{{$b.classID|default:'无分类群组'}}</div>
+  <span style="vertical-align:text-bottom; font-size:13px; color:#777">笔数 <span style="color:#002008">{{$b.cnt}}</span> 上传数{{$b.sumup}}/ 通过数{{$b.sumpass}}</span>
+  <div id="{{$b.hash}}"> 
+   {{foreach from=$obj->GetHwGroupDetails($b.classID) item=d}}
+     <div style="color:#444; margin-left:26px; display:block; font-size:10pt; background-color:{{cycle values="#EDAABC,#E0DEEE"}}">
+     - <small>[{{$d.hID}}]</small> 
+       <div style="padding-right:30px; font-size:11pt; min-width:170px; font-weight:bold; display:inline-block;"><a href="{{$smarty.const.SITE_URL}}index.php?f=HwDetail&amp;c={{$d.vc}}" title="{{$d.hwTitle}}"><b>{{$d.hwTitle}}</b></a></div>
+       <span>上传{{$d.uploadCnt}} 通过{{$d.passedCnt}} 点阅{{$d.clicked}} {{$d.hwO}}</span> 
+       开放上传 {{$d.fromDT}}~{{$d.dueDT}}
+{{if $d.canUpload ==1}}<span style="color:white; background-color:#9E0000; padding:2px;">作业上传中{{else}}<span style="color:#777; background-color:#FFFFCF;">已逾期{{/if}}</span>
+{{if $d.display ==1}}<span style="color:white; background-color:#8C2552; padding:2px;">开放参观{{/if}}</span>
+       <div style="float:right; width:180px;">最后异动 {{$d.lastModDT|default:'无'}}</div>
+     </div>
+   {{/foreach}}
+  </div>
+</td></tr>
+{{assign var="ii" value="`$ii+1`"}}
+{{/foreach}}
+
+<tr><td><div class="fy">{{$obj->CreateHwListPgStr()}}</div></td></tr>
+</table>
+</div>
+
+{{include file='Footer.mtpl'}}
+
+</body>

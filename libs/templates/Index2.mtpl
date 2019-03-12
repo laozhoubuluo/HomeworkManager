@@ -1,0 +1,53 @@
+{{include file='Header.mtpl'}}
+
+{{assign var='b' value=$obj->GetTableArr()}}
+
+<script type="text/javascript">
+$(function() {
+$("#kw").val("{{$b.kw}}");
+if( !{{$b._display|default:0}} )$("#_display").attr("checked",false); else $("#_display").attr("checked",true);
+if( !{{$b._thissem|default:0}} )$("#_thissem").attr("checked",false); else $("#_thissem").attr("checked",true);
+
+$("#sb2").click(function(){
+  _display= (typeof($("input[name=_display]:checked").val()) == "undefined" )? "0":"1";
+  _thissem= (typeof($("input[name=_thissem]:checked").val()) == "undefined" )? "0":"1";
+  var s="_display="+_display + ",_thissem="+_thissem;
+  $("#s").val(s);
+});
+});
+</script>
+</head>
+
+<body style="text-align:center;">
+{{include file='Banner.mtpl'}}
+<div style="height:32px;">
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 作业列表</div>
+</div>
+
+
+<div style="text-align:left;">
+
+<table width="100%" cellpadding="3" cellspacing="3" border="1" class="hwListTable">
+<tr><td width="240">[流水号]<a href="{{$smarty.const.SITE_URL}}?f=List{{$c}}&amp;odr=1">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-1">-</a> 作业名称 <a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=2">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-2">-</a></td>
+<td width="80">发佈人 <a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=3">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-3">-</a></td>
+<td width="40">上传件数 <a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=4">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-4">-</a></td>
+<td width="40">通过件数 <a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=5">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-5">-</a></td>
+<td width="40">点阅 <a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=6">+</a><a href="{{$smarty.const.SITE_URL}}?f=List&amp;c={{$c}}&amp;odr=-6">-</a></td>
+<td width="150">上传有效日期</td></tr>
+
+{{foreach from=$obj->GetHwList() item=d}}
+{{if $d.display eq 1}}<tr style="background-color:#BBE0EE; color:#222">{{else}}<tr>{{/if}}
+
+<td><small>[{{$d.hID}}]</small> <a href="{{$smarty.const.SITE_URL}}?f=HwDetail&amp;c={{$d.vc}}" title="{{$d.hwTitle}}">{{$d.hwTitle}}</a></td><td>{{$d.hwO}}</td><td>{{$d.uploadCnt}}</td><td>{{$d.passedCnt}}</td><td>{{$d.clicked}}</td><td>{{$d.fromDT}} ~ {{$d.dueDT}}</td>
+</tr>
+
+{{/foreach}}
+
+<tr><td colspan="6"><div class="fy">{{$obj->CreateHwListPgStr()}}</div></td></tr>
+</table>
+<font class="docfont">* 浅蓝色底：开放参观作业，访客可以下载</font>
+</div>
+
+{{include file='Footer.mtpl'}}
+
+</body>

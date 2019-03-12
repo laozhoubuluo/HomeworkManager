@@ -1,0 +1,134 @@
+{{include file='Header.mtpl'}}
+{{assign var='d' value=$obj->GetOneHw($hID) }}
+
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/jquery.form.js"></script>
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/blockUI/jquery.blockUI.js"></script>
+<script type="text/javascript">
+$(function() {
+$(".hwopA").click(function(){
+  var thisimg= $(this).children("img");
+  var snc= $(this).attr("sn");
+  var opr= $(this).attr("o");
+  $.ajax({ url: 'manage.php',cache: false, dataType: 'html', type:'POST',
+    data: { opr:opr, sn:snc, f:"MngUpHw" }, error: function(xhr) { alert('Ajax request 发生错误'+ xhr); },
+    success: function(response) { 
+      var attr= thisimg.attr("src"); if(response==1){  if(attr=="{{$smarty.const.SITE_URL}}images/manage/feed_star_gray.png") thisimg.attr("src","{{$smarty.const.SITE_URL}}images/manage/feed_star.png");
+       else thisimg.attr("src","{{$smarty.const.SITE_URL}}images/manage/feed_star_gray.png"); } 
+      else if(response==2){  if(attr=="{{$smarty.const.SITE_URL}}images/manage/bullet_tick_gray.png") thisimg.attr("src","{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png");
+       else thisimg.attr("src","{{$smarty.const.SITE_URL}}images/manage/bullet_tick_gray.png"); }
+      else alert(response);
+  }
+  });
+});
+
+  $(".cancel").click(function(){$.unblockUI();});
+  $.blockUI.defaults.css.cursor = 'text';
+  $.blockUI.defaults.css.top= '150px';
+  //setTimeout($.unblockUI, 60000*60);  //1HR
+  $(".hwopB").click(function(){
+	$.ajax({ url: 'manage.php',cache: false, dataType: 'html', type:'POST',
+    data: { c:$(this).attr("c"),f:"FindUpHwPasswd" }, error: function(xhr) { alert('Ajax request 发生错误'+ xhr); },
+    success: function(response) {$("#oldPasswd").html("原始密码　： "+response) ;}});
+    $("#ownetH").html("档案拥有人： "+$(this).prevUntil(".hwUnitDiv","a").text()) ;
+    $("#fileName").html("档案名称　： "+$(this).prevUntil(".hwUnitDiv","h4").children("span").text()) ;
+    $("#hIDc").val($(this).attr("c"));
+    $.blockUI.defaults.css.width = '450px';
+    $.blockUI({ message: $('#verifypwdDiv') });
+    setTimeout($.unblockUI, 1000*60); //1分钟自动消失
+    return false;
+  });
+
+$(".scoreText").change(function(){
+  var v= $(this).val();
+  var snc= $(this).attr("snc");
+  $.ajax({ url: 'manage.php',cache: false, dataType: 'html', type:'POST',
+    data: { hID:{{$hID}},snc:snc,v:v,f:"SaveOneHwScore" }, error: function(xhr) { alert('Ajax request 发生错误'+ xhr); },
+    success: function(response) { }});
+});
+});
+</script>
+</head>
+</head>
+<body>
+{{include file='Banner.mtpl'}}
+<div style="height:32px;">
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <b>{{$d.hwTitle}}</b></div>
+</div>
+
+<div style="text-align:left;">
+<fieldset class="hwFieldset">
+<legend><b>{{$d.hwTitle}} <small>[{{$d.hID}}]</small></b></legend>
+<p style="margin-top:5px;">
+<b>发佈人</b> {{$d.hwO}} <b>上传件数</b>{{$d.uploadCnt}} <b>通过件数</b>{{$d.passedCnt}} <b>点阅</b> {{$d.clicked}} 
+ <b>最后上传</b> {{$d.lastModDT}} <b>最后更新</b> {{$d.uDT}} <br /><b>上传有效日期</b> {{$d.fromDT}} ~ {{$d.dueDT}}
+{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" title="开放访客参观" alt="开放访客参观" width="24" height="24" />{{/if}}
+{{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" title="关闭中作业" alt="关闭中作业" width="24" height="24">{{/if}}
+{{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/lock.png" title="上传需要密码" alt="上传需要密码"  width="24" height="24" />{{/if}}
+</p>
+<div style="display:block; padding-top;10px;border-width:2px;">
+{{$d.remark}}
+</div>
+</fieldset>
+
+<table width="100%">
+<tr><td>
+<form action="{{$smarty.const.SITE_URL}}manage.php" method="post" id="f1">
+  <input type="hidden" name="f" value="SaveUpHwScore">
+  <input type="hidden" name="z" id="z" value="">
+  <input type="hidden" name="h" value="{{$hID}}">
+
+<div style="margin-top:10px;">
+  {{foreach from=$obj->GetUploadHwList($hID) item=e}}
+
+  {{if $e.passed eq 1 }}<div class="hwUnitDiv passedDiv">{{else}}<div class="hwUnitDiv">{{/if}}
+    <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}" target="_blank">
+    <img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block;  margin:0 10px 5px 0; padding-bottom:10px; width:120px; height:120px;" alt="{{$e.fileName}}" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}} [{{$e.modPasswd}}]" /></a>
+<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><h4><span>{{$e.oFileName}}</span></h4><br /><h4>{{$e.uDT}}</h4><br />
+  <h4>评分 <input type="text" size="6" value="{{$e.score}}" snc="{{$e.vc}}" maxlength="4" class="scoreText" /></h4>
+<br />
+  <a href="javascript:void(0);" class="hwopA" o="ex" sn="{{$e.exc}}">{{if $e.display eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star.png" alt="展示" width="16" height="16" />{{else}}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star_gray.png" alt="不展示" width="16" height="16" />{{/if}}</a>
+  <a href="javascript:void(0);" class="hwopA" o="p" sn="{{$e.pc}}">{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" />{{else}}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick_gray.png" alt="不通过"  width="16" height="16" />{{/if}}</a>
+  [<a href="javascript:void(0);" class="hwopB" c="{{$e.vc}}">密码</a>]
+
+  [<a href="{{$smarty.const.SITE_URL}}manage.php?f=DelHw&amp;c={{$e.vc}}" style="color:red;" onclick="return confirm('您是否确定删除 {{$e.cname}} 的作业？\n上传档案{{$e.oFileName}} {{$e.size}}bytes \n也会被删除，无法复原，请确定此操作。')">删除</a>]
+    <br />
+
+  </div>
+  {{/foreach}}
+</div>
+</form>
+
+</td></tr>
+
+<tr><td style="padding-top:10px; color:#555;">
+  
+  <img src="{{$smarty.const.SITE_URL}}images/manage/feed_star.png" alt="展示" width="16" height="16" /> /
+  <img src="{{$smarty.const.SITE_URL}}images/manage/feed_star_gray.png" alt="不展示" width="16" height="16" />：设定展示/不展示 设定展示会放到「作业展示」页面<br />
+  <img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" /> /
+  <img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick_gray.png" alt="不通过"  width="16" height="16" />：设定通过/不通过 当作业开放展示或上传时间通过与否会呈现<br />
+  绿色底：已通过作业
+
+</td></tr>
+</table>
+
+
+</div>
+
+    <!-- BlockUI -->
+    <div id="verifypwdDiv" style="display:none; height:260px; width:500px; padding:20px; text-align:left;">
+     <h3>查询 / 修改密码</h3>
+     <h4 id="ownetH" style="color:#FC7500;"></h4>
+     <h4 id="fileName" style="color:#FC7500;"></h4>
+     <h4 id="oldPasswd" style="color:#FF0000;"></h4>
+     <form name="f1" action="{{$smarty.const.SITE_URL}}manage.php" method="post">
+     <input name="f" value="ChangeHwFilePWD" type="hidden" />
+     <input name="c" id="hIDc" value="" type="hidden" />
+     <b>设定新密码：</b><input name="passwd" id="passwd" value="{{$smarty.const.RESET_PWD}}" type="text" /> 最多12个字
+     <br/><br />
+     <input id="sb4" style="margin:10px 0 10px 10px;" value=" 改密码 " type="submit" />  <input type="button" value=" 离　开 " class="cancel" />
+     </form>
+    </div> <!-- End of BlockUI -->
+
+{{include file='Footer.mtpl'}}
+
+</body>

@@ -1,0 +1,37 @@
+{{include file='Header.mtpl'}}
+{{assign var='b' value=$obj->GetOneUploadHw($sn) }}
+{{assign var='d' value=$obj->GetOneHw($b.hID) }}
+
+<script type="text/javascript" src="{{$smarty.const.SITE_URL}}js/blockUI/jquery.blockUI.js"></script>
+</head>
+
+
+
+</head>
+<body>
+{{include file='Banner.mtpl'}}
+<div style="height:32px;">
+  <div style="float:left; width:500px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业下载</div>
+</div>
+
+<div style="text-align:left;">
+
+<h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
+<table width="100%">
+<tr><td align="left" class="dltblTD">
+<b>档案</b> {{$b.oFileName}}  {{$b.size}}bytes 上传日期{{$b.cDT}}<br />
+
+<b>上传人姓名</b> {{$b.cname}}<br />
+<b>上传文件说明</b> {{$b.remark}}<br />
+<b>评分</b> {{$b.score}}<br />
+<b>是否通过</b> {{if $b.passed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" /> 通过{{else}}不通过{{/if}}<br />
+<b>开放展示</b> {{if $b.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star.png" alt="展示"  width="16" height="16" /> 开放访客参观{{else}}无{{/if}}<br />
+
+<tr><td align="center">
+<h3>档案若没有自动下载，<a href="{{$smarty.const.SITE_URL}}{{$smarty.const.UPDIR}}{{$b.fileName}}"> &gt;&gt; 请点选这裡 &lt;&lt;</a></h3>
+</td></tr></table>
+</div>
+<iframe name="dl1hw" width="0" height="0" marginwidth="0" marginheight="0" frameborder="0" scrolling="none" src="{{$smarty.const.SITE_URL}}homework.php?f=DlHwIframe&amp;c={{$c}}"></iframe>
+{{include file='Footer.mtpl'}}
+
+</body>

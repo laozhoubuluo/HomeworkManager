@@ -1,0 +1,55 @@
+{{include file='Header.mtpl'}}
+
+<script type="text/javascript">
+$(function() {
+  $("#sb1").click(function(){
+    var msg="";
+    if( $("#fn").val() == "") msg += "请选择上档案\n";
+    if( $("#cname").val() == "") msg += "上传人姓名必填\n"; 
+    if( $("#passwd").val() == "") msg += "删除及修改密码必填\n";
+    if( msg != ""){ alert( "错误：\n" +msg); return false; }
+  });
+});
+</script>
+</head>
+
+
+
+</head>
+<body>
+{{include file='Banner.mtpl'}}
+<div style="height:32px;">
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 关于</div>
+</div>
+
+
+<div style="text-align:left;">
+
+<h3>特色：</h3>
+<p style="text-indent:32px;">过去，我们请学生作业上传，总是替每一个学生建立帐号，在教学的现场上，学生一天到底忘记帐号密码；同时，新进转走的学生，老师还要一一的删除帐号，烦不胜烦。为什麽不改变做法？
+</p>
+<p style="text-indent:32px;">因此，我让每个老师开作业，请同学自己上传时设定密码，学生下次上课时，可以用自己的密码把自己的档案下载修改或删除。老师可以设定上传期间，非此上传期间不淮学生上传，也可以藉此控管学生缴交作业的期间；如果比较龟毛一点，还可以设定上传的密码，学生在上课时老师告知密码，学生上传前要先输入这组密码，才淮许上传，虽然我觉得这是给自己找麻烦，不过此功能我还是有写。</p>
+<p style="text-indent:32px;">过去，学生上传时，其他同学看到都可以下载别人的作业，有些偷懒的学生还会下载同学的作业下来改，我改进这个缺点，只要老师开作业时设定「不展示」则此作业就只能上传，其他人无法下载，待老师评完分数再去管理学生作业设定展示，设定展示后会放到展示页面，给访客下载。</p>
+<p>
+剩下还有一些功能，有兴趣的人自己研究啦，祝大家使用愉快。(程式有BUGS也不吝告知)
+</p>
+
+<h3>特色下载及安装：</h3>
+<p>精讚部落 <a href="http://note.tc.edu.tw/740.html" title="作业上传程式下载">http://note.tc.edu.tw/740.html</a></p>
+
+</p>
+
+<h3>作者及授权：</h3>
+<p>
+版权宣告：本程式遵从GNUv3规范 http://www.gnu.org/licenses/gpl.html<br />
+您可以依自身需要修改，但不得贩售及营利<br />
+作者：axer@tc.edu.tw 张本和 有程式的使用上问题或建议可以来信讨论 ^ ^ 3Q<br />
+2012.2.16 ~ 3.14
+</p>
+
+
+</div>
+
+{{include file='Footer.mtpl'}}
+
+</body>

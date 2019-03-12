@@ -1,0 +1,19 @@
+{{include file='Header.mtpl'}}
+</head>
+<body>
+{{include file='Banner.mtpl'}}
+
+<table cellspacing="0" cellpadding="0" align="center" class="mngpgtbl">
+<tbody><tr><td align="left">
+  <div align="left"></div>
+  <h3>作业上传讯息栏</h3>
+
+  <table cellspacing="0" cellpadding="0" border="0" align="center" class="contenttbl">
+  <tbody><tr><td align=center style="padding-top:80px 30px 30px 30px;"  >
+  {{$msg}}
+  </td></tr></tbody></table>
+</td></tr></tbody>
+</table>
+
+{{include file='Footer.mtpl'}}
+

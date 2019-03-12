@@ -84,11 +84,11 @@ CREATE TABLE IF NOT EXISTS `member` (
   `lastVisit` datetime default NULL,
   `tel` varchar(20) default NULL,
   `cellphone` varchar(20) default NULL,
-  `cmmuAddr` varchar(64) default NULL COMMENT 'e€?e‥?a?°a?€',
-  `cmmuZcode` varchar(5) default NULL COMMENT 'e€?e‥?a?°a?€ZIPcode',
+  `cmmuAddr` varchar(64) default NULL,
+  `cmmuZcode` varchar(5) default NULL,
   `from` varchar(32) NOT NULL,
   `signature` varchar(255) NOT NULL,
-  `regDT` datetime NOT NULL COMMENT 'a﹐3a??e‥?a??a??e–“',
+  `regDT` datetime NOT NULL,
   `role` varchar(64) NOT NULL default '2',
   PRIMARY KEY  (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;

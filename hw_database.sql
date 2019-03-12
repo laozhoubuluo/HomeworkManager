@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `hwList` (
   `lastModDT` timestamp NULL default NULL,
   `uDT` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
   `cDT` datetime NOT NULL,
+  `cidRegex` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY  (`hID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
 
@@ -148,9 +149,3 @@ CREATE TABLE IF NOT EXISTS `recuser` (
   `desc` varchar(100) collate utf8mb4_unicode_ci default NULL,
   PRIMARY KEY  (`uID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
-
-
--- 资料表限制 `hwUpload`
---
-ALTER TABLE `hwUpload`
-  ADD CONSTRAINT `hwUpload_ibfk_1` FOREIGN KEY (`hID`) REFERENCES `hwList` (`hID`) ON DELETE CASCADE ON UPDATE CASCADE;

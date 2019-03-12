@@ -55,7 +55,9 @@ class Bila_base_class {
   //检查图档附档名是否合规定
   public function ChkImgFileExt($filename, $AllowedImgExtNameArr, &$ext)
   {
-    $ext_fname = strtolower(end( explode(".", $filename ))); //取最后的副档名
+    $ext_fname = explode(".", $filename ); //取最后的副档名
+    $ext_fname = end($ext_fname); //Only variables should be passed by reference
+    $ext_fname = strtolower($ext_fname); //Only variables should be passed by reference
     $ext= $ext_fname;
     if (@in_array( $ext_fname ,$AllowedImgExtNameArr )) return 1;
     return -1;

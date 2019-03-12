@@ -92,7 +92,7 @@ function itemexist(arr,v){ if(arr.lastIndexOf(v)==-1)return false;  return true;
        开放上传 {{$d.fromDT}}~{{$d.dueDT}}
 {{if $d.canUpload ==1}}<span style="color:white; background-color:#9E0000; padding:2px;">作业上传中{{else}}<span style="color:#777; background-color:#FFFFCF;">已逾期{{/if}}</span>
 {{if $d.display ==1}}<span style="color:white; background-color:#8C2552; padding:2px;">开放参观{{/if}}</span>
-       <div style="float:right; width:200px;">最后异动 {{$d.lastModDT|default:'无'}}</div>
+       <!-- <div style="float:right; width:200px;">最后异动 {{$d.lastModDT|default:'无'}}</div> -->
      </div>
    {{/foreach}}
   </div>

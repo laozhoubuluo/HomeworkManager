@@ -16,7 +16,7 @@
     <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display: block; margin: 10px auto;" width="64" height="64" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}}" /></a>
 <!-- <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><H4>{{$e.oFileName}} {{$e.cDT|truncate:10:""}}</h4><br /> -->
 <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>学号: {{$e.cid|default:'不公开'}}</h5><br /><h5>姓名: {{$e.cname|default:'不公开'}}</h5></a><br /><H4><!-- <font style="color:#B10B4E;">{{$e.oFileName}}</font>  -->大小: {{$e.size}}bytes<br />时间: {{$e.uDT}}<br />
-    <h4>评分：{{$e.score|default:'无'}}</h4><br/>
+    <h4>评分: {{$e.score|default:'无'}}</h4><br/>
   </div>
   {{/foreach}}
   </td></tr></table>

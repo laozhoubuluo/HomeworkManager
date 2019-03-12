@@ -17,8 +17,8 @@ $("#sb2").click(function(){
   $("#f1").attr("target","_top"); $("#stp").val(0); return cx();});
 
 $.formValidator.initConfig({formid:"f1", onerror:function(msg){alert(msg); return false;}, onsuccess:function(){}});
-$("#from").focus(function(){WdatePicker({lang:'zh-tw', minDate:'#{%y-2}-%M-#{%d-1}', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
-$("#to").focus(function(){WdatePicker({lang:'zh-tw',startDate:'%y-%M-{%d+1}', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#from").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#to").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
 function cx(){
 /*  if ( $("#_kw").attr('checked')){ var kw=$("#kw").val(); if( kw==""){ alert("关键字搜寻请输入关键字！"); return false; }  }
   var _from=$("#from").val();
@@ -42,7 +42,7 @@ return true;
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 作业管理页--作业列表</div>  
+  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业管理页--作业列表</div>  
   <div style="float:right; width:350px; text-align:right; font-weight:bold; margin-right:10px;">
 [<a href="{{$smarty.const.SITE_URL}}manage.php?f=AccManage" title="帐号管理">帐号管理</a>] 
 [<a href="{{$smarty.const.SITE_URL}}manage.php?f=ChangeHomework" title="新增作业">+ 新增作业</a>]</div>

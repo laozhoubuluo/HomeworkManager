@@ -12,8 +12,8 @@ $("#closed").val("{{$a.closed}}");
 $("#display").val("{{$a.display}}");
 $("#upPasswd").val("{{$a.upPasswd}}");
 $.formValidator.initConfig({formid:"f1", onerror:function(msg){alert(msg); return false;}, onsuccess:function(){}});
-$("#from").focus(function(){WdatePicker({lang:'zh-tw', minDate:'%y-%M-#{%d-1}', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
-$("#to").focus(function(){WdatePicker({lang:'zh-tw',startDate:'%y-%M-{%d+1}', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#from").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#to").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
 $("#sb1").click(function(){
   var msg="";
   if($("#hwTitle").val()=="")msg += "作业标题名称必填\n";
@@ -33,7 +33,7 @@ $("#sb1").click(function(){
 {{include file='Banner.mtpl'}}
 
 <div style="height:32px;">
-  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 修改作业--[{{$a.hID}}] {{$a.hwTitle}}</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 修改作业--[{{$a.hID}}] {{$a.hwTitle}}</div>
   <div style="float:right; width:300px; text-align:right;"></div>
 </div>
 
@@ -54,7 +54,7 @@ $("#sb1").click(function(){
    <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
 </td></tr>
 <tr><td>作业描述</td><td><textarea name="remark" cols="80" rows="6" id="remark">{{$a.remark}}</textarea><br />
-<font class="docfont">作业描述会显示在前台给上传者观看，限定250个字元。</font>
+<font class="docfont">作业描述会显示在前台给上传者观看，限定1000个字元。</font>
 </td></tr>
 
 <tr bgcolor="#D1EFD2"><td>作业属性</td><td>

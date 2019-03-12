@@ -41,8 +41,8 @@ switch($f){
         'email' => $_POST['email'],
         'shadow' => md5($_POST['email']),
         'passwd' => md5($_POST['passwd']),
-        'usID' => mysql_real_escape_string($_POST["usID"]),
-        'cname' => mysql_real_escape_string($_POST["cname"]),
+        'usID' => mysqli_real_escape_string($obj->DB->_connectionID, $_POST["usID"]),
+        'cname' => mysqli_real_escape_string($obj->DB->_connectionID, $_POST["cname"]),
         "regDT" => date("Y-n-d H:i:s")
       );
       $IsOk =$obj->ProcAdmAddMember( $arr );
@@ -61,11 +61,11 @@ switch($f){
     $rank=(int)$_POST["rank"];
     if($rank>99)$rank=99;elseif($rank<0)$rank=0;
     $arr=array(
-      "hwTitle"=> mysql_real_escape_string(trim($_POST["hwTitle"])),
-      "hwO"=> mysql_real_escape_string(trim($_POST["hwO"])),
+      "hwTitle"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["hwTitle"])),
+      "hwO"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["hwO"])),
       "email"=> $_SESSION['email'],
-      "passwd"=> mysql_real_escape_string($_POST["passwd"]),
-      "classID"=> mysql_real_escape_string($_POST["classID"]),
+      "passwd"=> mysqli_real_escape_string($obj->DB->_connectionID, $_POST["passwd"]),
+      "classID"=> mysqli_real_escape_string($obj->DB->_connectionID, $_POST["classID"]),
       "fromDT" => empty( $_POST["from"])?"": $_POST["from"],
       "dueDT" => empty($_POST["to"])?"": $_POST["to"],
       "remark" => addslashes($_POST["remark"]),
@@ -235,7 +235,7 @@ switch($f){
           $msg="<h3>档名{$targetDir}.zip，请 [<a href='". SITE_URL. UPDIR . TEMP_PATH . $targetDir .".zip'>点选此处下载</a>] </h3>档案资讯：<div style='text-align:left;'>";
           $arr= $obj-> GetUploadHwList($sn);
           foreach($arr as $it){
-             $msg .= "{$it['fileName']} ,{$it['size']}bytes ,拥有人{$it['cname']} ,原档名{$it['oFileName']} ,备注{$it['remark']}<br/>";
+             $msg .= "{$it['fileName']} ,{$it['size']}bytes ,学号{$it['cid']} ,拥有人{$it['cname']} ,原档名{$it['oFileName']} ,备注{$it['remark']}<br/>";
           } 
           $msg .="</div>";
         }

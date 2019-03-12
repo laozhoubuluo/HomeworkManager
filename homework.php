@@ -134,7 +134,7 @@ switch($f){
     $cid = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
     $cname = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
     $title = $obj-> GetHwTitle($hID);
-    if(!$obj-> CheckCidByRegex($cid, $row['hID'])){
+    if(!$obj-> CheckCidByRegex($cid, $hID)){
       $msg="您输入的学号不符合管理员在后台设置的正则表达式，请重新输入！";
       $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
       $view->assign('msg', $msg);

@@ -19,7 +19,7 @@ $(function() {
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}index/List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业修改</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业修改</div>
 </div>
 
 <div style="text-align:left;">

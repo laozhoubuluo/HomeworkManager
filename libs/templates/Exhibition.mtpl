@@ -4,7 +4,7 @@
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业展示</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业展示</div>
 </div>
 
 <div style="text-align:left; display:block;">

@@ -25,10 +25,20 @@ class Homework_class extends Bila_base_class {
   }
   public function GetHwTitle($hID)
   {//新增获取作业标题，标准化命名需求。
-    $sql = "select hwTitle from `hwList` where `hID`={$hID} limit 1";
+    $sql = "select `hwTitle` from `hwList` where `hID`={$hID} limit 1";
     $row= $this->DB->GetRow( $sql );
     if( !$row)return -1; 
     return $row['hwTitle'];
+  }
+  public function CheckCidByRegex($cID, $hID)
+  {//新增根据正则表达式判断学号是否正确，标准化命名需求。
+    $sql = "select `cidRegex` from `hwList` where `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if($row['cidRegex'] == '' || preg_match($row['cidRegex'], $cID)){
+      return true;
+    }else{
+      return false;
+    }
   }
   public function CheckHwPasswd($sn, $cipher)
   {

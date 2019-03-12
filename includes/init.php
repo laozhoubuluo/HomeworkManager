@@ -85,7 +85,7 @@ include "adodb5/adodb.inc.php";    //读入ADODB的类别函式库 V5.09a (2009.
 include "base.class.php";        //读入基础的function
 
 //Database
-$DB = NewADOConnection('mysql');
+$DB = NewADOConnection('mysqli');//Using MySQLi
 $DB->Connect(DB_ADDR, DB_USR, DB_PWD, DB_NAME);
 $DB->Execute("set names utf8");
 

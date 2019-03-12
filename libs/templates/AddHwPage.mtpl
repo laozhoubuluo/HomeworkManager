@@ -30,7 +30,7 @@ $("#sb1").click(function(){
 {{include file='Banner.mtpl'}}
 
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 新增作业</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 新增作业</div>
   <div style="float:right; width:300px; text-align:right;"></div>
 </div>
 

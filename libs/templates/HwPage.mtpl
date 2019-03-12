@@ -112,7 +112,7 @@ $(function() {
     {{else}}
     <!-- <img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png"  style="display:block; margin-left:10px;"  width="120" height="120" /> -->
 	<img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display: block; margin: 20px auto;" width="64" height="64" />
-    <!-- <h5>{{$e.cname|default:'不公开'}}</h5><br /><h5>{{$e.remark|default:'不公开'}}</h5>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" />{{/if}}<br /><H4><font style="color:#B10B4E;">{{$e.oFileName}}</font> {{$e.size}}bytes {{$e.uDT}}</h4> -->
+    <!-- <h5>{{$e.cname|default:'不公开'}}</h5>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" />{{/if}}<br /><H4><font style="color:#B10B4E;">{{$e.oFileName}}</font> {{$e.size}}bytes {{$e.uDT}}</h4> -->
 	<h5>学号: {{$e.cid|default:'不公开'}}</h5><br /><h5>姓名: {{$e.cname|default:'不公开'}}</h5>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过"  width="16" height="16" />{{/if}}<br /><H4><!-- <font style="color:#B10B4E;">{{$e.oFileName}}</font>  -->大小: {{$e.size}}bytes<br />时间: {{$e.uDT}}</h4>
     {{/if}}
     <br />

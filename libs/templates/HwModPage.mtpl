@@ -26,7 +26,8 @@ $(function() {
 
 <h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
 <table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:11pt;">
-<tr><td><small>[{{$d.hID}}]</small></td><td>发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}}</td><td>通过件数 {{$d.passedCnt}}</td><td>点阅 {{$d.clicked}}</td><td>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</td><td>属性 {{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" alt="开放访客参观">{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" alt="关闭中作业">{{/if}}</td>
+<tr><td><small>[{{$d.hID}}]</small></td><td>发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}}</td><td>通过件数 {{$d.passedCnt}}</td><td>点阅 {{$d.clicked}}</td><td>最后更新 {{$d.uDT}}</td><td><b>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</b></td>
+<td>{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" alt="开放访客参观" width="12" height="12" />{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" alt="关闭中作业" width="12" height="12">{{/if}} {{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/lock.png" alt="上传需要密码"  width="12" height="12" />{{/if}}</td>
 </tr></table>
 <table width="100%">
 {{if $d.canUpload eq 1 }}

@@ -73,7 +73,8 @@ switch($f){
       "display" => (int)$_POST["display"],
       "upPasswd" => (int)$_POST["upPasswd"],
       "rank" =>$rank,
-      "cDT" => date("Y-n-d H:i:s")
+      "cDT" => date("Y-n-d H:i:s"),
+      "cidRegex"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["cidRegex"]))
     );
     if($stp==3){ $IsOk =$obj->ProcAddHw( $arr );
       if( $IsOk <=0 )$msg="伺服器状态异常，写入终止！ Err{$IsOk}";

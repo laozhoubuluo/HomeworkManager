@@ -12,8 +12,8 @@ $("#closed").val("{{$a.closed}}");
 $("#display").val("{{$a.display}}");
 $("#upPasswd").val("{{$a.upPasswd}}");
 $.formValidator.initConfig({formid:"f1", onerror:function(msg){alert(msg); return false;}, onsuccess:function(){}});
-$("#from").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
-$("#to").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-M-d H:mm:ss', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#from").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-MM-dd HH:mm:ss', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#to").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-MM-dd HH:mm:ss', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
 $("#sb1").click(function(){
   var msg="";
   if($("#hwTitle").val()=="")msg += "作业标题名称必填\n";
@@ -50,7 +50,7 @@ $("#sb1").click(function(){
 <tr><td>班级/群组</td><td><input name="classID" id="classID" size="12" maxlength="12" type="text" value="{{$a.classID}}" /><font class="docfont"> 说明：同个班级在作业列表时会折叠起来，因此可加注学年，例"101学年1年2班"、"2甲[101]"、"101电脑测验"，如不折叠请留空。</font></td></tr>
 <tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="{{$a.rank}}" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
 <tr bgcolor="#E1DFE2"><td>上传作业有效日期 *</td><td>
-  <div>自 <input name="from" id="from" value="{{$a.fromDT}}" readonly type="text" size="12"/> 至 <input name="to" id="to" value="{{$a.dueDT}}" readonly type="text" size="12" /></div>
+  <div>自 <input name="from" id="from" value="{{$a.fromDT}}" readonly type="text" size="20"/> 至 <input name="to" id="to" value="{{$a.dueDT}}" readonly type="text" size="20" /></div>
    <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
 </td></tr>
 <tr><td>作业描述</td><td><textarea name="remark" cols="80" rows="6" id="remark">{{$a.remark}}</textarea><br />

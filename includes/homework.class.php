@@ -92,7 +92,7 @@ class Homework_class extends Bila_base_class {
     return 1;
   }
 
-  public function ProcUpFiles( $file, $imgDir, &$returnrr ){
+  public function ProcUpFiles( $file, $imgDir, &$returnrr, $title, $cid, $cname ){
     $currDir = UPLOAD_DIR .$imgDir;
     $fn = strtolower($file['name']);    // ex. thread_jh.gif
     $fs = $file['size']; // ex. 340 (in bytes)

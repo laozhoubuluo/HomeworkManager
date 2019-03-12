@@ -85,15 +85,20 @@ switch($f){
         $view->display('Message.mtpl');
         break;
       }
+      //从POST请求中获取学号、姓名，通过数据库获取作业标题，并将其传送给ProcUpFiles, 作业标准化命名需求
+      $cid = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
+      $cname = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
+      $title = $obj-> GetHwTitle($row['hID']);
       $imgDir = HWPREFIX ."{$row['hID']}/";   //ex: 2008DecMedia/
-      $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr);
+      $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
       if( $IsOk >0){ $arr= $rrr; $delFile=true;  }
       else $msg="档案上传失败 Err{$IsOk}";
     }
     $arr['sn']= $sn;
     $arr['modPasswd']= $_POST['passwd'];
-    $arr['remark']= mysql_real_escape_string(trim( $_POST['remark'] ));
-    $arr['cname']= mysql_real_escape_string(trim( $_POST['cname'] ));
+    $arr['remark']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['remark'] ));
+    $arr['cid']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
+    $arr['cname']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
     $arr['uDT']=time();
     if( !$row)$msg = "修改失败，参数错误 Err-13";
     else {
@@ -118,15 +123,20 @@ switch($f){
       $view->display('Message.mtpl');
       break;
     }
+    //从POST请求中获取学号、姓名，通过数据库获取作业标题，并将其传送给ProcUpFiles, 作业标准化命名需求
+    $cid = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
+    $cname = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
+    $title = $obj-> GetHwTitle($hID);
     $imgDir = HWPREFIX .$hID. "/";   //ex: xx00/
-    $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr);
+    $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
     $msg="";
     if( $IsOk >0){
       $arr=$rrr;
       $arr['hID']=$hID;
       $arr['modPasswd']= $_POST['passwd'];
-      $arr['remark']= mysql_real_escape_string(trim( $_POST['remark'] ));
-      $arr['cname']= mysql_real_escape_string(trim( $_POST['cname'] ));
+      $arr['remark']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['remark'] ));
+      $arr['cid']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));
+      $arr['cname']= mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));
       $arr['cDT']=time();
       $arr['uDT']=$arr['cDT'];  //第一次上传时，更新时间与新增时间相同
       $IsOk =$obj->ProcAddHwUpload( $arr );

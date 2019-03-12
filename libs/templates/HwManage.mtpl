@@ -42,7 +42,7 @@ return true;
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业管理页--作业列表</div>  
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业管理页--作业列表</div>  
   <div style="float:right; width:350px; text-align:right; font-weight:bold; margin-right:10px;">
 [<a href="{{$smarty.const.SITE_URL}}manage.php?f=AccManage" title="帐号管理">帐号管理</a>] 
 [<a href="{{$smarty.const.SITE_URL}}manage.php?f=ChangeHomework" title="新增作业">+ 新增作业</a>]</div>

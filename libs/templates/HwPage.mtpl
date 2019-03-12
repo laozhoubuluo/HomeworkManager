@@ -50,15 +50,15 @@ $(function() {
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; {{$d.hwTitle}}</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; {{$d.hwTitle}}</div>
 </div>
 
 <div style="text-align:left;">
 
 <h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
-<table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:11pt;">
-<tr><td><small>[{{$d.hID}}]</small> 发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}} 通过件数 {{$d.passedCnt}} 点阅 {{$d.clicked}}</td><td>最后更新 {{$d.uDT}} <b>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</b></td>
-<td>{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=eye.png" alt="开放访客参观" width="24" height="24" />{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=disconnect.png" alt="关闭中作业" width="24" height="24">{{/if}} {{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}imagesmanage.php?f=lock.png" alt="上传需要密码"  width="24" height="24" />{{/if}}</td>
+<table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:12px;">
+<tr><td><small>[{{$d.hID}}]</small> 发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}} 通过件数 {{$d.passedCnt}} 点阅 {{$d.clicked}}</td><td>最后更新 {{$d.uDT}}</td><td><b>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</b></td>
+<td>{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" alt="开放访客参观" width="24" height="24" />{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" alt="关闭中作业" width="24" height="24">{{/if}} {{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/lock.png" alt="上传需要密码"  width="24" height="24" />{{/if}}</td>
 </tr></table>
 <table width="100%">
 {{if $d.canUpload eq 1 }}
@@ -107,7 +107,7 @@ $(function() {
     <!-- <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block; margin-left:10px;" width="120" height="120" /></a> -->
     <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display: block; margin: 20px auto;" width="64" height="64" /></a>
     <!-- <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过" width="16" height="16" />{{/if}}<H4>{{$e.oFileName}} {{$e.size}}bytes {{$e.uDT}}</h4><br /> -->
-<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>学号: {{$e.cid|default:'不公开'}}</h5><br /><h5>姓名: {{$e.cname|default:'不公开'}}</h5></a>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过" width="16" height="16" />{{/if}}<H4>{{$e.oFileName}} {{$e.size}}bytes {{$e.uDT}}</h4><br />
+<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>学号: {{$e.cid|default:'不公开'}}</h5><br /><h5>姓名: {{$e.cname|default:'不公开'}}</h5></a>{{if $e.passed eq 1 }}<img src="{{$smarty.const.SITE_URL}}images/manage/bullet_tick.png" alt="通过" width="16" height="16" />{{/if}}<H4><!-- {{$e.oFileName}} -->大小: {{$e.size}}bytes<br />时间: {{$e.uDT}}</h4><br />
     <h4>评分：{{$e.score|default:'无'}}</h4>
     {{else}}
     <!-- <img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png"  style="display:block; margin-left:10px;"  width="120" height="120" /> -->

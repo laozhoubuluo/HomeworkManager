@@ -35,5 +35,7 @@ $ chmod 777 libs/templates_c
 
 1. 只有新版本支持PHP7，老版本只支持PHP5。
 2. 系统内置了默认的账号密码信息，请在程序部署后及时修改密码。
+
 管理员默认账号: default@note.tc.edu.tw
+
 管理员默认密码: 0000

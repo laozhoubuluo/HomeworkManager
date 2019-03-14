@@ -8,8 +8,8 @@
 <script type="text/javascript">
 $(function() {
 $.formValidator.initConfig({formid:"f1", onerror:function(msg){alert(msg); return false;}, onsuccess:function(){}});
-$("#from").focus(function(){WdatePicker({lang:'zh-tw', minDate:'%y-%M-#{%d-1}', startDate:'%y-%M-%d', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
-$("#to").focus(function(){WdatePicker({lang:'zh-tw',startDate:'%y-%M-{%d+1}', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#from").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-MM-dd HH:mm:ss', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择开始日期",onfocus:"请选择开始日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
+$("#to").focus(function(){WdatePicker({lang:'zh-cn', dateFmt:'yyyy-MM-dd HH:mm:ss', skin:'whyGreen',oncleared:function(){$(this).blur();},onpicked:function(){$(this).blur();}})}).formValidator({onshow:"请选择结束日期",onfocus:"请选择结束日期",oncorrect:"日期已选择",empty:true}).inputValidator({min:6,onerror:"日期错误或未选择日期"});
 $("#sb1").click(function(){
   var msg="";
   if($("#hwTitle").val()=="")msg += "作业标题名称必填\n";
@@ -30,7 +30,7 @@ $("#sb1").click(function(){
 {{include file='Banner.mtpl'}}
 
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 新增作业</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}manage.php?f=Homework">作业管理</a> &gt; 新增作业</div>
   <div style="float:right; width:300px; text-align:right;"></div>
 </div>
 
@@ -45,12 +45,13 @@ $("#sb1").click(function(){
 <tr><td>上传作业密码 </td><td><input name="passwd" id="passwd" size="12" maxlength="12" type="text" value="" /><font class="docfont"> 说明：学生上传作业需输入此密码。</font></td></tr>
 <tr><td>班级/群组</td><td><input name="classID" id="classID" size="12" maxlength="12" type="text" value="" /><font class="docfont"> 说明：同个班级在作业列表时会折叠起来，因此可加注学年，例"101学年1年2班"、"2甲[101]"、"101电脑测验"，如不折叠请留空。</font></td></tr>
 <tr bgcolor="#E1DFE2"><td>上传作业有效日期 *</td><td>
-  <div>自 <input name="from" id="from" value="" readonly type="text" size="12"/> 至 <input name="to" id="to" value="" readonly type="text" size="12" /></div>
+  <div>自 <input name="from" id="from" value="" readonly type="text" size="20"/> 至 <input name="to" id="to" value="" readonly type="text" size="20" /></div>
    <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
 </td></tr>
 <tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="20" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
+<tr><td>学号正则表达式</td><td><input name="cidRegex" id="cidRegex" size="20" maxlength="255" type="text" value="" /><font class="docfont"> 说明：提交作业时会自动利用preg_match按照此处设定的正则表达式进行判断，如不需要请留空。</font></td></tr>
 <tr><td>作业描述</td><td><textarea name="remark" cols="80" rows="6" id="remark"></textarea><br />
-<font class="docfont">作业描述会显示在前台给上传者观看，限定250个字元。</font>
+<font class="docfont">作业描述会显示在前台给上传者观看，限定1000个字元。</font>
 </td></tr>
 
 <tr bgcolor="#F9F998"><td>作业属性</td><td>

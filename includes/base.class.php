@@ -55,7 +55,9 @@ class Bila_base_class {
   //检查图档附档名是否合规定
   public function ChkImgFileExt($filename, $AllowedImgExtNameArr, &$ext)
   {
-    $ext_fname = strtolower(end( explode(".", $filename ))); //取最后的副档名
+    $ext_fname = explode(".", $filename ); //取最后的副档名
+    $ext_fname = end($ext_fname); //Only variables should be passed by reference
+    $ext_fname = strtolower($ext_fname); //Only variables should be passed by reference
     $ext= $ext_fname;
     if (@in_array( $ext_fname ,$AllowedImgExtNameArr )) return 1;
     return -1;
@@ -417,11 +419,11 @@ class Bila_base_class {
   }
 
   /**
-     Create a good telephone string. Remove non-telephone characters.
+   * Create a good telephone string. Remove non-telephone characters.
    * @param $tel unarranged tel string. ex: (02)aA０123-4567 -->(02)0123-4567
    * @return An arranged tel string ex: (02)0123-4567ext123
-     IsValidTel 检查是否为正确电话格式，字串仅接受数字和 0-9 空白()ext-#*
-     ex if($obj->IsValidTel($_POST['tel'], $purifiedtel) <= 0)$purifiedtel="";
+   * IsValidTel 检查是否为正确电话格式，字串仅接受数字和 0-9 空白()ext-#*
+   * ex if($obj->IsValidTel($_POST['tel'], $purifiedtel) <= 0)$purifiedtel="";
   */
   public function IsValidTel($str, &$tel){
     if( empty( $str)) return -1;
@@ -440,9 +442,9 @@ class Bila_base_class {
     if( !$newlocation ) $newlocation= $_SERVER["PHP_SELF"];
     if( $top )$otop="top";else $otop="this";
     $TJS_countdown=<<<DOC
-	<BR><BR><form name=f>
-    <input type=button value="Click me" id="btn")>
-    <script type='text/javascript'>
+	<BR><BR><form name="f">
+    <input type="button" value="Click me" id="btn")>
+    <script type="text/javascript">
       var time={$cdtime};
       function DisableEnable(objid){
   	  if(time<=0){

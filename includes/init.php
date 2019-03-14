@@ -14,27 +14,23 @@ init 程式的初始档，包括建立smarty物件、资料库等。
 if (__FILE__ == ''){ die('Fatal error code: 0'); }
 
 // ----==== 程式初始档开始 ====-----
-define('DB_NAME', "hw"); //资料库名
+define('DB_NAME', "homework"); //资料库名
 
 define('DB_ADDR', "localhost");  //资料库ip
 
-define('DB_USR', "hw");  // 资料库使用者
+define('DB_USR', "homework");  // 资料库使用者
 
-define('DB_PWD', "0");  //资料库密码
+define('DB_PWD', "12345678");  //资料库密码
 
-define('SUPER_PASSWD', "12345");  //最高权限user 密码
+define('SUPER_PASSWD', "12345678");  //最高权限user 密码，后台添加用户时会用到
 
-define('SendAllEmail', 1);  //Set 1 to enable email
+define('SendAllEmail', 0);  //Set 1 to enable email
 
-define('SITE_CNAME', "作业上传精简版");  //网站标头
+define('SITE_CNAME', "作业管理系统欢迎您！");  //网站标头
 
-define('SITE_DN', "163.17.38.84"); //网域名或IP，请勿加上'/'
+define('SITE_DN', $_SERVER['HTTP_HOST']); //网域名或IP，请勿加上'/'
 
 define('SITE_URL', "http://". SITE_DN ."/homework/");  // 修改网站位址，请保留字串最后的 '/'
-
-// 若为台中地区学校，可指定学校名称，例：北区太平国小，以供公务帐号登入，留空代表不使用公务帐号功能
-// 若已设定学校，则公务帐号认证后，若属于设定的学校，将可以直接使用管理功能。
-define('SCH_NAME', "");
 
 define('UPDIR', "upload/");
 
@@ -68,7 +64,7 @@ define('SEMESTER2', 2); // 学期2起始月份
 
 define('HWPREFIX', 'hw'); // 作业目录字首xx，产生的目录会是 xx1, xx2, xx3...
 
-define('RESET_PWD', '5678');   // 修改学生的密码时之预设新密码
+define('RESET_PWD', '12345678');   // 修改学生的密码时之预设新密码
 
 // ========== 程式设定结束 ===============
 // 以下内容请勿任意修改，否则会造成程式损害
@@ -89,7 +85,7 @@ include "adodb5/adodb.inc.php";    //读入ADODB的类别函式库 V5.09a (2009.
 include "base.class.php";        //读入基础的function
 
 //Database
-$DB = NewADOConnection('mysql');
+$DB = NewADOConnection('mysqli');//Using MySQLi
 $DB->Connect(DB_ADDR, DB_USR, DB_PWD, DB_NAME);
 $DB->Execute("set names utf8");
 

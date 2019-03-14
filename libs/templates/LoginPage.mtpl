@@ -14,9 +14,8 @@
      <ul style="line-height:32px;">
      <li>电子信箱 Email <input name="email" size="30" maxlength="64" type="text" value="" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z@.\-_]/g,'');" /></li>
      <li>密码 <input name="passwd" size="20" maxlength="16" type="password" /></li>
-     <li>请输入中文字「好」字 <input id="validate" type="text" name="validate" style="width:25px;"  maxlength="1" size="4" /></li>
+     <li>请输入中文字「好」字 <input id="validate" type="text" name="validate" style="width:25px;"  maxlength="1" size="4" value="好" /></li>
      <li><input name="sb1" style="margin:10px 0 10px 10px;" value=" 登入管理介面 " type="submit" /></li>
-{{if $smarty.const.SCH_NAME neq ""}} <li>或 <a href="index.php?f=TCLogin"> <img width="50" src="images/manage/tclogo.gif" />使用台中市公务帐号登入 限定[{{$smarty.const.SCH_NAME}}]</a></li>{{/if}}
      </ul>
     </form>
   </div> 

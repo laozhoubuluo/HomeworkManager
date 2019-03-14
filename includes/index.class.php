@@ -213,7 +213,7 @@ class Index_class extends Bila_base_class {
     if( $sn<=0)return false;
     $sql = "select * from `hwList` where `hID`={$sn} limit 1";
     $row =$this->DB->GetRow( $sql );
-    $currD =date("Y-m-d");
+    $currD =date("Y-m-d H:i:s");//时间精确到秒，精准限制提交时间需求
     if( $currD <= $row['dueDT'] &&  $currD >= $row['fromDT'] && $row['closed']==0)$row['canUpload']= 1;
     else $row['canUpload']= 0;
     $row['upc']=  $this->Encrypt_Arr2c( array('sn'=>$row['hID'], 'stp'=>2, 'pg'=>1));
@@ -229,7 +229,7 @@ class Index_class extends Bila_base_class {
   }
 
   public function GetUploadHwList( $hID){
-    $sql ="select SQL_CALC_FOUND_ROWS * from `hwUpload` where `hID`={$hID} order by `cname`, `cDT` desc";
+    $sql ="select SQL_CALC_FOUND_ROWS * from `hwUpload` where `hID`={$hID} order by `cid`, `cDT` desc";//作业列表按新增学号字段排序
     $arr =$this->DB->GetAll( $sql );
     $this->rowsCount = $this->DB->GetOne("select FOUND_ROWS()");
     $tbl=array();

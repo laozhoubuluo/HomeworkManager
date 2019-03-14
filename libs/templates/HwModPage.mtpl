@@ -8,6 +8,7 @@ $(function() {
   $("#sb1").click(function(){
     var msg="";
 //    if( $("#fn").val() == "") msg += "请选择上档案\n";
+    if( $("#cid").val() == "") msg += "上传人学号必填\n"; 
     if( $("#cname").val() == "") msg += "上传人姓名必填\n"; 
     if( $("#passwd").val() == "") msg += "删除及修改密码必填\n";
     if( msg != ""){ alert( "错误：\n" +msg); return false; }
@@ -18,14 +19,15 @@ $(function() {
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}index/List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业修改</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业修改</div>
 </div>
 
 <div style="text-align:left;">
 
 <h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
-<table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:11pt;">
-<tr><td><small>[{{$d.hID}}]</small></td><td>发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}}</td><td>通过件数 {{$d.passedCnt}}</td><td>点阅 {{$d.clicked}}</td><td>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</td><td>属性 {{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" alt="开放访客参观">{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" alt="关闭中作业">{{/if}}</td>
+<table width="100%" cellpadding="3" cellspacing="3" border="1" style="border:3px solid #71BF0B;border-collapse:collapse;text-align:left; font-size:12px;">
+<tr><td><small>[{{$d.hID}}]</small></td><td>发佈人 {{$d.hwO}}</td><td>上传件数 {{$d.uploadCnt}}</td><td>通过件数 {{$d.passedCnt}}</td><td>点阅 {{$d.clicked}}</td><td>最后更新 {{$d.uDT}}</td><td><b>上传有效日期 {{$d.fromDT}} ~ {{$d.dueDT}}</b></td>
+<td>{{if $d.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/eye.png" alt="开放访客参观" width="12" height="12" />{{/if}} {{if $d.closed eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/disconnect.png" alt="关闭中作业" width="12" height="12">{{/if}} {{if $d.upPasswd eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/lock.png" alt="上传需要密码"  width="12" height="12" />{{/if}}</td>
 </tr></table>
 <table width="100%">
 {{if $d.canUpload eq 1 }}
@@ -37,6 +39,7 @@ $(function() {
 <input type="hidden" name="snc" value="{{$obj->LongEncode($sn)}}" />
 <input name="MyFile" id="fn" type="file" size="44" /><br />
 <font class="noticefont">已上传档案：{{$b.oFileName}} {{$b.size}}bytes 要置换档案请重传，否则留空</font><br />
+上传人学号 * <input type="text" name="cid" id="cid" value="{{$b.cid}}" size="12" maxlength="12"  /> <br />
 上传人姓名 * <input type="text" name="cname" id="cname" value="{{$b.cname}}" size="12" maxlength="12"  /> <br />
 上传文件说明 <input type="text" name="remark" value="{{$b.remark}}" size="60" maxlength="100"  /> <font class="docfont">文件说明限订最多100个字</font><br />
 请输入删除及修改密码 * <input type="text" name="passwd" id="passwd" value="{{$b.modPasswd}}" size="12" maxlength="12" />  <font class="warningfont">最大长度为12，此栏为未来修改及删除的依据</font><br />

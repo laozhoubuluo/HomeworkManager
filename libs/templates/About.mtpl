@@ -19,7 +19,7 @@ $(function() {
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 关于</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 关于</div>
 </div>
 
 
@@ -35,16 +35,17 @@ $(function() {
 </p>
 
 <h3>特色下载及安装：</h3>
-<p>精讚部落 <a href="http://note.tc.edu.tw/740.html" title="作业上传程式下载">http://note.tc.edu.tw/740.html</a></p>
+<p>GitHub: <a href="https://github.com/laozhoubuluo/HomeworkManager" target="_blank">https://github.com/laozhoubuluo/HomeworkManager</a></p>
 
 </p>
 
 <h3>作者及授权：</h3>
 <p>
+本项目是基于 https://github.com/AxerZ/homework 项目的二次开发版本，考虑到版本差距较大，因此独立开启项目独立维护。<br />
+在此感谢原作者张本和(axer@tc.edu.tw)。<br />
+修改版作者：老周部落
 版权宣告：本程式遵从GNUv3规范 http://www.gnu.org/licenses/gpl.html<br />
 您可以依自身需要修改，但不得贩售及营利<br />
-作者：axer@tc.edu.tw 张本和 有程式的使用上问题或建议可以来信讨论 ^ ^ 3Q<br />
-2012.2.16 ~ 3.14
 </p>
 
 

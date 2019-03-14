@@ -23,6 +23,23 @@ class Homework_class extends Bila_base_class {
     $pg=$arr['pg'];
     return $this->CreateEncodePgLnkHtmlByc( SITE_URL. "/manage/Homework", $c, PAGE_ENCRYPT_KEY, $pg);
   }
+  public function GetHwTitle($hID)
+  {//新增获取作业标题，标准化命名需求。
+    $sql = "select `hwTitle` from `hwList` where `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if( !$row)return -1; 
+    return $row['hwTitle'];
+  }
+  public function CheckCidByRegex($cID, $hID)
+  {//新增根据正则表达式判断学号是否正确，标准化命名需求。
+    $sql = "select `cidRegex` from `hwList` where `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if($row['cidRegex'] == '' || ($row['cidRegex'] != '' && preg_match($row['cidRegex'], $cID))){
+      return true;
+    }else{
+      return false;
+    }
+  }
   public function CheckHwPasswd($sn, $cipher)
   {
     $sql = "select * from `hwUpload` where `sn`={$sn} and md5(`modPasswd`)='{$cipher}' limit 1";
@@ -42,7 +59,7 @@ class Homework_class extends Bila_base_class {
     if( empty($hID))return -1;
     $sql = "select * from `hwList` where `hID`={$hID} limit 1";
     $row= $this->DB->GetRow( $sql );
-    $currD =date("Y-m-d");
+    $currD =date("Y-m-d H:i:s");//时间精确到秒，精准限制提交时间需求
     if( $currD <= $row['dueDT'] &&  $currD >= $row['fromDT'] && $row['closed']==0)$row['canUpload']= 1;
     else $row['canUpload']= 0;
     return $row;
@@ -85,7 +102,7 @@ class Homework_class extends Bila_base_class {
     return 1;
   }
 
-  public function ProcUpFiles( $file, $imgDir, &$returnrr ){
+  public function ProcUpFiles( $file, $imgDir, &$returnrr, $title, $cid, $cname ){
     $currDir = UPLOAD_DIR .$imgDir;
     $fn = strtolower($file['name']);    // ex. thread_jh.gif
     $fs = $file['size']; // ex. 340 (in bytes)
@@ -95,8 +112,10 @@ class Homework_class extends Bila_base_class {
     $IsOk =$this->ChkImgFileExt($fn, $this->NotAllowedFileExtArr, $ext);  //1: not allowed file
     if($IsOk > 0){ $msg= "传档类型 ". implode(',',$this->NotAllowedFileExtArr) . "不被允许"; return -2;}
     if( $this->CreateDirectory($currDir)<= 0){ $msg= "建立目录[$currDir]失败";return -3;}
-    $_date = date("YmdHis"). rand(0, 100) ;    //ex: 20080911123456
-    $newfn= "{$_date}.{$ext}";
+    //$_date = date("YmdHis"). rand(0, 100) ;    //ex: 20080911123456
+    //$newfn= "{$_date}.{$ext}";
+    //命名格式: 作业标题-学号-姓名.扩展名, 作业标准化命名需求
+    $newfn=$title . '-' . $cid . '-' . $cname . ".{$ext}";
     $newpath =  $currDir. $newfn;
     @copy( $tempfs,  $newpath);
     @unlink($tempfs);

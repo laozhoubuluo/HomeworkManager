@@ -4,17 +4,19 @@
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:450px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; 作业展示</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; 作业展示</div>
 </div>
 
 <div style="text-align:left; display:block;">
  <table><tr><td align="center">
   {{foreach from=$obj->GetDisplayUpHws() item=e}}
-  <div class="hwUnitDiv">
-    <span style="line-height:30px; background-color:#E27E43; color:white; padding:2px 5px 2px 5px;">{{$e.hwTitle}}</span><br />
-    <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block; margin-left:10px;" width="120" height="120" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}}" /></a>
-<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><H4>{{$e.oFileName}} {{$e.cDT|truncate:10:""}}</h4><br />
-    <h4>评分：{{$e.score|default:'无'}}</h4><br/>
+  <div class="hwUnitDiv" style="text-align: left;">
+    <span style="line-height:30px; background-color:#E27E43; color:white; padding:2px 5px 2px 5px; font-size: 12px;">{{$e.hwTitle}}</span><br />
+    <!-- <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display:block; margin-left:10px;" width="120" height="120" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}}" /></a> -->
+    <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><img src="{{$smarty.const.SITE_URL}}images/png/{{$e.ext}}.png" style="display: block; margin: 10px auto;" width="64" height="64" title="{{$e.oFileName}} size {{$e.size}}bytes {{$e.remark}}" /></a>
+<!-- <a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>{{$e.cname|default:'不公开'}}</h5></a><br /><H4>{{$e.oFileName}} {{$e.cDT|truncate:10:""}}</h4><br /> -->
+<a href="{{$smarty.const.SITE_URL}}homework.php?f=View&amp;c={{$e.vc}}"><h5>学号: {{$e.cid|default:'不公开'}}</h5><br /><h5>姓名: {{$e.cname|default:'不公开'}}</h5></a><br /><H4><!-- <font style="color:#B10B4E;">{{$e.oFileName}}</font>  -->大小: {{$e.size}}bytes<br />时间: {{$e.uDT}}<br />
+    <h4>评分: {{$e.score|default:'无'}}</h4><br/>
   </div>
   {{/foreach}}
   </td></tr></table>

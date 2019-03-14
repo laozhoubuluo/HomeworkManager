@@ -11,7 +11,7 @@
 <body>
 {{include file='Banner.mtpl'}}
 <div style="height:32px;">
-  <div style="float:left; width:500px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">作业上传首页</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业下载</div>
+  <div style="float:left; width:700px;text-align:left;"><a href="{{$smarty.const.SITE_URL}}">{{$smarty.const.SITE_CNAME}}</a> &gt; <a href="{{$smarty.const.SITE_URL}}?f=List">作业列表</a> &gt; <a href="{{$smarty.session.currURL}}">{{$d.hwTitle}}</a> &gt; 作业下载</div>
 </div>
 
 <div style="text-align:left;">
@@ -19,8 +19,11 @@
 <h3 style="text-shadow: 5px 5px 5px #197FD8;">{{$d.hwTitle}}</h3>
 <table width="100%">
 <tr><td align="left" class="dltblTD">
-<b>档案</b> {{$b.oFileName}}  {{$b.size}}bytes 上传日期{{$b.cDT}}<br />
+<b>档案</b> {{$b.oFileName}}<br />
+<b>文档大小</b> {{$b.size}}bytes<br />
+<b>上传日期</b> {{$b.cDT}}<br />
 
+<b>上传人学号</b> {{$b.cid}}<br />
 <b>上传人姓名</b> {{$b.cname}}<br />
 <b>上传文件说明</b> {{$b.remark}}<br />
 <b>评分</b> {{$b.score}}<br />

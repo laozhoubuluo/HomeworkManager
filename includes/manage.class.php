@@ -119,7 +119,7 @@ class Manage_class extends Bila_base_class {
     return $arr;
   }
   public function GetUploadHwList( $hID){
-    $sql ="select SQL_CALC_FOUND_ROWS * from `hwUpload` where `hID`={$hID} order by `cname`, `cDT` desc";
+    $sql ="select SQL_CALC_FOUND_ROWS * from `hwUpload` where `hID`={$hID} order by `cid`, `cDT` desc";//作业列表按新增学号字段排序
     $arr =$this->DB->GetAll( $sql );
     $this->rowsCount = $this->DB->GetOne("select FOUND_ROWS()");
     $tbl=array();

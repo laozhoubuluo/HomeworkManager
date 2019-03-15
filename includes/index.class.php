@@ -87,7 +87,7 @@ class Index_class extends Bila_base_class {
     $sql .= "where `closed`=0 and `classID`='{$classID}' {$orderby}";
     $arr= $this->DB->GetAll( $sql );
     for($ii=0; $ii<sizeof($arr); $ii++){
-      $currD =date("Y-m-d");
+      $currD =date("Y-m-d H:i:s");//时间精确到秒，精准限制提交时间需求
       if( $currD <= $arr[$ii]['dueDT'] &&  $currD >= $arr[$ii]['fromDT'] && $arr[$ii]['closed']==0)$arr[$ii]['canUpload']= 1;
       else $arr[$ii]['canUpload']= 0;
       $sn=$arr[$ii]['hID'];

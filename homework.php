@@ -98,7 +98,7 @@ switch($f){
       }
       $imgDir = HWPREFIX ."{$row['hID']}/";   //ex: 2008DecMedia/
       $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
-      if( $IsOk >0){ $arr= $rrr; $delFile=true;  }
+      if( $IsOk >0){ $arr= $rrr; }
       else $msg="档案上传失败 Err{$IsOk}";
     }
     $arr['sn']= $sn;
@@ -110,7 +110,7 @@ switch($f){
     if( !$row)$msg = "修改失败，参数错误 Err-13";
     else {
       $IsOk =$obj->ProcModMyHw ( $arr );
-      if( $IsOk>0 ){ $msg ="档案修改成功 <br />"; if($delFile)@unlink(UPLOAD_DIR. $row['fileName']); }
+      if( $IsOk>0 ){ $msg ="档案修改成功 <br />"; }
       else $msg = "档案修改失败 Err{$IsOk}";
     }
     $msg .= $obj->JS_CntDn( SITE_URL ."?f=HwDetail&c={$obj->LongEncode($row['hID'])}" , 5000);

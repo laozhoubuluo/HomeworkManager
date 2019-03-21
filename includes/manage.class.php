@@ -84,7 +84,7 @@ class Manage_class extends Bila_base_class {
     //else $sql .= "where `innbasic`.`o`='{$this->GetSession('email')}' {$where} {$orderby} LIMIT {$index} ,{$this->RowsPerPage}";
     $arr= $this->DB->GetAll( $sql );
     $this->rowsCount = $this->DB->GetOne("select FOUND_ROWS()");
-    $currD =date("Y-m-d");
+    $currD =date("Y-m-d H:i:s");//时间精确到秒，精准限制提交时间需求
     for($ii=0; $ii<sizeof($arr); $ii++){
       $sn=$arr[$ii]['hID'];
       $tbl['sn']=$sn;

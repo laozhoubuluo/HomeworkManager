@@ -241,4 +241,64 @@ class Manage_class extends Bila_base_class {
 
     return 1;   
   }
+
+  public function SendFile2Browser($sn=0, $title){
+    if(!$sn) return -1;
+    $ctype="application/force-download";
+    $fullFileName=UPDIR . TEMP_PATH . HWPREFIX . $sn . '.zip';
+    if (!file_exists( $fullFileName )) return -3;
+	$FileName = $title . '.zip';
+    $encodedFileName = urlencode($FileName);
+    $encodedFileName = str_replace("+", "%20", $encodedFileName);
+    $ua = isset($_SERVER["HTTP_USER_AGENT"])? $_SERVER["HTTP_USER_AGENT"]:"";
+    if (preg_match("/MSIE/i", $ua))
+      $header = "attachment; filename=\"{$encodedFileName}\";";
+    elseif (preg_match("/Firefox/", $ua)) 
+      $header = "attachment; filename*=\"utf8''{$FileName}\";";
+    else 
+      $header = "attachment; filename=\"{$FileName}\";";
+//print $header;
+//exit;
+//    header("Content-type: application/force-download");
+
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // cache stop
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // cache stop
+header("Cache-Control: must-revalidate"); // cache stop
+
+ 
+    header("Pragma: public");
+    header("Expires: 0");
+//    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//    header("Cache-Control: private",false);
+header("Cache-Control: private");
+    header("Content-Disposition: {$header}");
+    header("Content-Type: {$ctype}");
+//header("Content-Type: application/octet-stream");
+//header("Content-Type: application/download");
+
+   header("Content-Transfer-Encoding: binary");
+    header("Content-Length: ".@filesize($fullFileName));
+    set_time_limit(0);
+    $this->LogManage( "stp=DownloadHwZip,sn={$sn}");
+// download
+ readfile($fullFileName);
+exit;
+/*
+$file = @fopen($fullFileName,"rb");
+if ($file) {
+  while(!feof($file)) {
+    print(fread($file, 1024*8));
+    flush();
+    if (connection_status()!=0) {
+      @fclose($file);
+      return -4;
+    }
+  }
+  @fclose($file);
+}*/
+
+// log downloads
+    return 1;
+  }
 }
+

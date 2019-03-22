@@ -233,7 +233,8 @@ switch($f){
           $cmd = "cd ". UPLOAD_TEMP_DIR. "; rm -f {$targetDir}.zip; zip -rjq {$targetDir}.zip $currPath/*";
           system( $cmd );
           sleep(1);
-          $msg="<h3>档名{$targetDir}.zip，请 [<a href='". SITE_URL. UPDIR . TEMP_PATH . $targetDir .".zip'>点选此处下载</a>] </h3>档案资讯：<div style='text-align:left;'>";
+          //$msg="<h3>档名{$targetDir}.zip，请 [<a href='". SITE_URL. UPDIR . TEMP_PATH . $targetDir .".zip'>点选此处下载</a>] </h3>档案资讯：<div style='text-align:left;'>";
+          $msg="<h3>档名{$targetDir}.zip，请 [<a href='". SITE_URL. 'manage.php?f=DownloadHwZip&sn=' . $sn ."'>点选此处下载</a>] </h3>档案资讯：<div style='text-align:left;'>";
           $arr= $obj-> GetUploadHwList($sn);
           foreach($arr as $it){
              $msg .= "{$it['fileName']} ,{$it['size']}bytes ,学号{$it['cid']} ,拥有人{$it['cname']} ,原档名{$it['oFileName']} ,备注{$it['remark']}<br/>";
@@ -296,7 +297,18 @@ switch($f){
     else {$msg="储存作业成绩成功"; $wt=2000;}
     print $msg;
     break;
-
+  case "DownloadHwZip":
+    $sn = (int)$_GET['sn'];
+    $title = $obj->GetOneHw( $sn );
+    $title = $title['hwTitle'];
+    if (!$obj->SendFile2Browser($sn, $title)) {
+      $msg="档案文件不存在，无法执行发送操作！";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
+    break;
   default:
     $msg = "". $obj->JS_CntDn( SITE_URL, 0);
     $view->assign('msg', $msg);

@@ -201,6 +201,7 @@ header("Cache-Control: private");
    header("Content-Transfer-Encoding: binary");
     header("Content-Length: ".@filesize($fullFileName));
     set_time_limit(0);
+    $this->LogManage( "stp=DownloadHw,sn={$sn}");//添加作业下载日志
 // download
  readfile($fullFileName);
 exit;

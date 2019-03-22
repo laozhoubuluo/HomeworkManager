@@ -75,31 +75,52 @@ switch($f){
   case "ModMyHw":
     $sn = (int)$obj->LongDecode($_POST['snc']);
     $arr= array();
-    $delFile=false;
     $row = $obj-> GetOneUploadHw($sn);
+    //判断作业编号是否正确
+    if(!isset($row['hID']) || $row['hID']<= 0){
+      $msg="错误的作业编号Err-12";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
+    //判断作业是否在可上传状态
+    $ret = $obj-> GetOneHw($row['hID']);
+    if ($ret['canUpload'] == 0){
+      $msg="档案修改失败，非上传时间Err-3";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
+    //从POST请求中获取学号、姓名
+    $cid = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
+    $cname = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
+    if(!$obj-> CheckCidByRegex($cid, $row['hID'])){
+      $msg="您输入的学号不符合管理员在后台设置的正则表达式，请重新输入！";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
     if($_FILES['MyFile']['size']>0){ // 有上传新档
-      if(!isset($row['hID']) || $row['hID']<= 0){ 
-        $msg="错误的作业编号Err-12";
-        $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
-        $view->assign('msg', $msg);
-        $view->display('Message.mtpl');
-        break;
-      }
-      //从POST请求中获取学号、姓名，通过数据库获取作业标题，并将其传送给ProcUpFiles, 作业标准化命名需求
-      $cid = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cid'] ));//学号
-      $cname = mysqli_real_escape_string($obj->DB->_connectionID, trim( $_POST['cname'] ));//姓名
+      //通过数据库获取作业标题，并将其传送给ProcUpFiles, 作业标准化命名需求
       $title = $obj-> GetHwTitle($row['hID']);
-      if(!$obj-> CheckCidByRegex($cid, $row['hID'])){
-        $msg="您输入的学号不符合管理员在后台设置的正则表达式，请重新输入！";
-        $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
-        $view->assign('msg', $msg);
-        $view->display('Message.mtpl');
-        break;
-      }
       $imgDir = HWPREFIX ."{$row['hID']}/";   //ex: 2008DecMedia/
       $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
       if( $IsOk >0){ $arr= $rrr; }
       else $msg="档案上传失败 Err{$IsOk}";
+    } else {
+      $hwcheck = $obj-> GetOneUploadHw($sn);
+      if ($hwcheck['cid'] != $cid || $hwcheck['cname'] != $cname){
+        $msg="如需修改学号及姓名，请重新上传文档！";
+        $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+        $view->assign('msg', $msg);
+        $view->display('Message.mtpl');
+        break;
+	  } else {
+        $IsOk = 1;//无上传文件直接标记为成功
+      }
     }
     $arr['sn']= $sn;
     $arr['modPasswd']= $_POST['passwd'];
@@ -109,7 +130,7 @@ switch($f){
     $arr['uDT']=time();
     if( !$row)$msg = "修改失败，参数错误 Err-13";
     else {
-      $IsOk =$obj->ProcModMyHw ( $arr );
+      if( $IsOk>0 ){ $IsOk =$obj->ProcModMyHw ( $arr ); }//文件上传成功再修改数据库
       if( $IsOk>0 ){ $msg ="档案修改成功 <br />"; }
       else $msg = "档案修改失败 Err{$IsOk}";
     }

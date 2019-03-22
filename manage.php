@@ -300,8 +300,16 @@ switch($f){
   case "DownloadHwZip":
     $sn = (int)$_GET['sn'];
     $title = $obj->GetOneHw( $sn );
-    $title = $title['hwTitle'];
-    if (!$obj->SendFile2Browser($sn, $title)) {
+    if (isset($title['hwTitle'])) {
+        $title = $title['hwTitle'];
+    } else {
+      $msg="作业项目不存在，无法执行发送操作！";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
+    if ($obj->SendFile2Browser($sn, $title) != 1) {
       $msg="档案文件不存在，无法执行发送操作！";
       $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
       $view->assign('msg', $msg);

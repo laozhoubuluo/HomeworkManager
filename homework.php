@@ -162,6 +162,13 @@ switch($f){
       $view->display('Message.mtpl');
       break;
     }
+    if($obj-> CheckUploadStatusByCid($cid, $hID)){
+      $msg="本学号已经上传过作业，请使用编辑功能或删除后重新上传！";
+      $msg .= $obj->JS_CntDn( "{$_SESSION['currURL']}" , 5000);
+      $view->assign('msg', $msg);
+      $view->display('Message.mtpl');
+      break;
+    }
     $imgDir = HWPREFIX .$hID. "/";   //ex: xx00/
     $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
     $msg="";

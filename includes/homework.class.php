@@ -40,6 +40,16 @@ class Homework_class extends Bila_base_class {
       return false;
     }
   }
+  public function CheckUploadStatusByCid($cID, $hID)
+  {//新增根据学号和作业号判定作业上传状态，因为真的有上传两次作业的和输错学号的......
+    $sql = "select `sn` from `hwUpload` where `cID`={$cID} and `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if(isset($row['sn'])){
+      return $row['sn'];
+    }else{
+      return false;
+    }
+  }
   public function CheckHwPasswd($sn, $cipher)
   {
     $sql = "select * from `hwUpload` where `sn`={$sn} and md5(`modPasswd`)='{$cipher}' limit 1";

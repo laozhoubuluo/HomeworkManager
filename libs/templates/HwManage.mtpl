@@ -88,7 +88,7 @@ return true;
 [<a href='manage.php?f=Homework&amp;c={{$d.cc}}'>{{if $d.closed eq 1}}有效{{else}}无效{{/if}}</a>] 
 [<a href='manage.php?f=Homework&amp;c={{$d.dspc}}'>{{if $d.display eq 1}}不{{/if}}展示</a>] 
 [<a href='manage.php?f=Homework&amp;c={{$d.mc}}'>修</a>] 
-[<a href='manage.php?f=Homework&amp;c={{$d.hwc}}' target='_blank'>作业管理</a>] [<a href='manage.php?f=Homework&amp;c={{$d.dlc}}'>下载整包</a>]
+[<a href='manage.php?f=Homework&amp;c={{$d.hwc}}' target='_blank'>作业管理</a>] [<a href='manage.php?f=Homework&amp;c={{$d.dlc}}'{{if $d.canUpload eq 1}} onclick='return confirm("作业还在可提交状态，现在下载整包将导致后续提交不在下载的整包中，是否继续？");'{{/if}}>下载整包</a>]
 
 [<a href='manage.php?f=Homework&amp;c={{$d.delc}}' onclick="return confirm('已上传作业亦会一併删除，此操作不能复原，是否确定要删除此笔作业单：\n\n[{{$d.hID}}] {{$d.hwTitle}}？')"><font color="red">删</font></a>]
 </td>

@@ -49,7 +49,7 @@ switch($f){
       $msg="伺服器状态异常，新增失败！ Err{$IsOk}";
     }
     if( $IsOk >0 ) $msg="会员新增成功";
-    elseif( $IsOk =-4 ) $msg="帐号已经存在";
+    elseif( $IsOk ==-4 ) $msg="帐号已经存在";
     $msg .= $obj->JS_CntDn( SITE_URL. "manage.php?f=AccManage" , 4000);
     $view->assign('msg', $msg);
     $view->display('Message.mtpl');

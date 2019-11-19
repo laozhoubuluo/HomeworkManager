@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `hwList` (
   `hwTitle` varchar(100) collate utf8mb4_unicode_ci NOT NULL,
   `hwO` varchar(20) collate utf8mb4_unicode_ci NOT NULL,
   `email` varchar(60) collate utf8mb4_unicode_ci NOT NULL,
-  `classID` varchar(12) collate utf8mb4_unicode_ci NOT NULL,
+  `classID` varchar(50) collate utf8mb4_unicode_ci NOT NULL,
   `remark` varchar(1000) collate utf8mb4_unicode_ci NOT NULL,
   `passwd` varchar(20) collate utf8mb4_unicode_ci NOT NULL,
   `fromDT` datetime NOT NULL,
@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `hwList` (
   `uDT` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
   `cDT` datetime NOT NULL,
   `cidRegex` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `FileNameFormat` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `FolderNameFormat` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
   PRIMARY KEY  (`hID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
 

@@ -74,7 +74,9 @@ switch($f){
       "upPasswd" => (int)$_POST["upPasswd"],
       "rank" =>$rank,
       "cDT" => date("Y-n-d H:i:s"),
-      "cidRegex"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["cidRegex"]))
+      "cidRegex"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["cidRegex"])),
+      "FileNameFormat"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["fileNameFormat"])),
+      "FolderNameFormat"=> mysqli_real_escape_string($obj->DB->_connectionID, trim($_POST["folderNameFormat"]))
     );
     if($stp==3){ $IsOk =$obj->ProcAddHw( $arr );
       if( $IsOk <=0 )$msg="伺服器状态异常，写入终止！ Err{$IsOk}";
@@ -230,7 +232,7 @@ switch($f){
         else{
 //          $tmpPath =  UPLOAD_TEMP_DIR. "$targetDir.zip";
           $currPath= UPLOAD_DIR. $targetDir;
-          $cmd = "cd ". UPLOAD_TEMP_DIR. "; rm -f {$targetDir}.zip; zip -rjq {$targetDir}.zip $currPath/*";
+          $cmd = "cd ". UPLOAD_TEMP_DIR. "; rm -f {$targetDir}.zip; cd ". $currPath."; zip -rq ".UPLOAD_TEMP_DIR."{$targetDir}.zip *";
           system( $cmd );
           sleep(1);
           //$msg="<h3>档名{$targetDir}.zip，请 [<a href='". SITE_URL. UPDIR . TEMP_PATH . $targetDir .".zip'>点选此处下载</a>] </h3>档案资讯：<div style='text-align:left;'>";

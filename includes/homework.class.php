@@ -23,6 +23,21 @@ class Homework_class extends Bila_base_class {
     $pg=$arr['pg'];
     return $this->CreateEncodePgLnkHtmlByc( SITE_URL. "/manage/Homework", $c, PAGE_ENCRYPT_KEY, $pg);
   }
+
+  public function GetHwFileNameFormat($hID)
+  {//新增获取作业文件名格式，标准化命名2.0需求。
+    $sql = "select `FileNameFormat` from `hwList` where `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if( !$row)return -1; 
+    return $row['FileNameFormat'];
+  }
+  public function GetHwFolderNameFormat($hID)
+  {//新增获取作业文件夹名格式，标准化命名2.0需求。
+    $sql = "select `FolderNameFormat` from `hwList` where `hID`={$hID} limit 1";
+    $row= $this->DB->GetRow( $sql );
+    if( !$row)return -1; 
+    return $row['FolderNameFormat'];
+  }
   public function GetHwTitle($hID)
   {//新增获取作业标题，标准化命名需求。
     $sql = "select `hwTitle` from `hwList` where `hID`={$hID} limit 1";
@@ -112,24 +127,30 @@ class Homework_class extends Bila_base_class {
     return 1;
   }
 
-  public function ProcUpFiles( $file, $imgDir, &$returnrr, $title, $cid, $cname ){
-    $currDir = UPLOAD_DIR .$imgDir;
-    $fn = strtolower($file['name']);    // ex. thread_jh.gif
+  public function ProcUpFiles( $file, $imgDir, &$returnrr, $title, $cid, $cname, $foldername, $filename ){
+    $fn = $file['name'];    // ex. thread_jh.gif
     $fs = $file['size']; // ex. 340 (in bytes)
     $tempfs = $file['tmp_name'];  // ex. /var/tmp/phpF390NL
     $err = $file['error'];  // error:0
     if ($err>0 || $fs <=0){ $msg= "传输错误，错误次". $err; return -1; }
     $IsOk =$this->ChkImgFileExt($fn, $this->NotAllowedFileExtArr, $ext);  //1: not allowed file
     if($IsOk > 0){ $msg= "传档类型 ". implode(',',$this->NotAllowedFileExtArr) . "不被允许"; return -2;}
+    if(empty($foldername)) {
+        $currDir = UPLOAD_DIR .$imgDir;
+    } else {
+        eval('$foldernamenew = "'.$foldername.'";');
+        $currDir = UPLOAD_DIR .$imgDir .$foldernamenew;
+    }
     if( $this->CreateDirectory($currDir)<= 0){ $msg= "建立目录[$currDir]失败";return -3;}
     //$_date = date("YmdHis"). rand(0, 100) ;    //ex: 20080911123456
     //$newfn= "{$_date}.{$ext}";
     //命名格式: 作业标题-学号-姓名.扩展名, 作业标准化命名需求
-    $newfn=$title . '-' . $cid . '-' . $cname . ".{$ext}";
+    //$newfn=$title . '-' . $cid . '-' . $cname . ".{$ext}";
+    eval('$newfn = "'.$filename.'";');
     $newpath =  $currDir. $newfn;
     @copy( $tempfs,  $newpath);
     @unlink($tempfs);
-    $returnrr= array("fileName"=> $imgDir. $newfn, "oFileName"=> $fn,  "size"=>$fs, "ext"=>$ext);
+    $returnrr= array("fileName"=> (empty($foldername) ? $imgDir : $imgDir .$foldernamenew). $newfn, "oFileName"=> $fn,  "size"=>$fs, "ext"=>$ext);
     return 1; //Succeed
   }
   public function ProcDelHw($sn){

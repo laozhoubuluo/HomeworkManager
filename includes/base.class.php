@@ -109,7 +109,7 @@ class Bila_base_class {
       if( !is_dir( $curr_dir) )return -1;  //存在但不是目录，新增目录失败
       else return 1;
     }else {
-      $IsOk = mkdir( $curr_dir, 0775);
+      $IsOk = mkdir( $curr_dir, 0775, true);
       if( $IsOk ) return 2;
       else return -2; // 新增目录失败
     }

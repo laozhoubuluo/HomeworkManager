@@ -107,7 +107,7 @@ switch($f){
       //通过数据库获取作业标题，并将其传送给ProcUpFiles, 作业标准化命名需求
       $title = $obj-> GetHwTitle($row['hID']);
       $imgDir = HWPREFIX ."{$row['hID']}/";   //ex: 2008DecMedia/
-      $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
+      $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname, $row['hID']);
       if( $IsOk >0){ $arr= $rrr; }
       else $msg="档案上传失败 Err{$IsOk}";
     } else {
@@ -170,7 +170,17 @@ switch($f){
       break;
     }
     $imgDir = HWPREFIX .$hID. "/";   //ex: xx00/
-    $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname);
+    if(empty($obj->GetHwFolderNameFormat($hID))) {
+        $foldername = '';
+    } else {
+        $foldername = $obj->GetHwFolderNameFormat($hID) . "/";   //ex: xx00/
+    }
+    if(empty($obj->GetHwFileNameFormat($hID))) {
+        $filename = "\$title-\$cid-\$cname.\$ext";
+    } else {
+        $filename = $obj->GetHwFileNameFormat($hID);
+    }
+    $IsOk= $obj->ProcUpFiles($_FILES['MyFile'], $imgDir, $rrr, $title, $cid, $cname, $foldername, $filename);
     $msg="";
     if( $IsOk >0){
       $arr=$rrr;

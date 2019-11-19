@@ -103,7 +103,7 @@ class Index_class extends Bila_base_class {
   public function GetHwGroupList(){
     $tbl = $this-> GetCurrParam();
     $where="where `closed`=0 ";
-    $odr= empty($tbl['odr'])?-7:$tbl['odr'];
+    $odr= empty($tbl['odr'])?-10:$tbl['odr'];
     switch( abs($odr)){
       case 1:
         $orderby = " order by `hID` ";
@@ -132,8 +132,9 @@ class Index_class extends Bila_base_class {
       case 9:
         $orderby = " order by `lastModDT` ";
         break;
+      case 10:
       default:
-        $orderby = ""; //预设不排序
+        $orderby = " order by `rank`, `hID`";//默认按后台rank/hid排序
         break;
     }
     if($odr<0)$orderby .= "desc ";
@@ -180,8 +181,9 @@ class Index_class extends Bila_base_class {
       case 7:
         $orderby = " order by `cDT` ";
         break;
+      case 10:
       default:
-        $orderby = ""; //预设不排序
+        $orderby = " order by `rank`, `hID`";//默认按后台rank/hid排序
         break;
     }
     if($odr<0)$orderby .= "desc ";

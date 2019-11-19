@@ -40,13 +40,15 @@ $("#sb1").click(function(){
     <input type="hidden" name="f" value="ChangeHomework">
 
 <table width="99%" cellpadding="3" cellspacing="3" border="0">
-<tr bgcolor="#E1DFE2"><td width="120">作业发佈人 *</td><td width="400"><input name="hwO" id="hwO" size="16" maxlength="20" type="text" value="{{$smarty.session.cname}}" /></td></tr>
+<tr bgcolor="#E1DFE2"><td width="120">作业发佈人 *</td><td width="400"><input name="hwO" id="hwO" size="50" maxlength="20" type="text" value="{{$smarty.session.cname}}" /></td></tr>
 <tr bgcolor="#E1DFE2"><td>作业标题名称 *</td><td><input name="hwTitle" id="hwTitle" size="50" maxlength="50" type="text" value="" /></td></tr>
-<tr><td>上传作业密码 </td><td><input name="passwd" id="passwd" size="12" maxlength="12" type="text" value="" /><font class="docfont"> 说明：学生上传作业需输入此密码。</font></td></tr>
-<tr><td>班级/群组</td><td><input name="classID" id="classID" size="12" maxlength="12" type="text" value="" /><font class="docfont"> 说明：同个班级在作业列表时会折叠起来，因此可加注学年，例"101学年1年2班"、"2甲[101]"、"101电脑测验"，如不折叠请留空。</font></td></tr>
+<tr><td>上传作业密码 </td><td><input name="passwd" id="passwd" size="20" maxlength="12" type="text" value="" /><font class="docfont"> 说明：学生上传作业需输入此密码。</font></td></tr>
+<tr><td>班级/群组</td><td><input name="classID" id="classID" size="20" maxlength="50" type="text" value="" /><font class="docfont"> 说明：同个班级在作业列表时会折叠起来，因此可加注学年，例"101学年1年2班"、"2甲[101]"、"101电脑测验"，如不折叠请留空。</font></td></tr>
+<tr><td>文件名格式</td><td><input name="fileNameFormat" id="fileNameFormat" size="20" maxlength="50" type="text" value="" /><font class="docfont"> 说明：<a title="$title为作业标题，$cid为学号，$cname为学生姓名，$ext为扩展名，$datatime为时间，$random为六位随机数。请不要忘记.$ext哦~" style="cursor: help;">格式解读</a>。默认为作业标题-学号-姓名.扩展名，如可接受请留空。</font></td></tr>
+<tr><td>文件夹名格式</td><td><input name="folderNameFormat" id="folderNameFormat" size="20" maxlength="50" type="text" value="" /><font class="docfont"> 说明：<a title="$title为作业标题，$cid为学号，$cname为学生姓名，$datatime为时间，$random为六位随机数。" style="cursor: help;">格式解读</a>。如不需要创建文件夹请留空。</font></td></tr>
 <tr bgcolor="#E1DFE2"><td>上传作业有效日期 *</td><td>
-  <div>自 <input name="from" id="from" value="" readonly type="text" size="20"/> 至 <input name="to" id="to" value="" readonly type="text" size="20" /></div>
-   <font class="docfont">说明：有效日期起(含当日)时至结束(含当日)，非有效日期期间不能上传。</font>
+  <div>自 <input name="from" id="from" value="" type="text" size="20"/> 至 <input name="to" id="to" value="" type="text" size="20" /></div>
+   <font class="docfont">说明：有效日期以系统时间为准，非有效日期期间不能上传。</font>
 </td></tr>
 <tr bgcolor="#E1DFE2"><td>作业序 *</td><td><input name="rank" id="rank" size="4" maxlength="2" type="text" value="20" /><font class="docfont"> 说明：数字越高越优先，此序仅供自己的作业排序。</font></td></tr>
 <tr><td>学号正则表达式</td><td><input name="cidRegex" id="cidRegex" size="20" maxlength="255" type="text" value="" /><font class="docfont"> 说明：提交作业时会自动利用preg_match按照此处设定的正则表达式进行判断，如不需要请留空。</font></td></tr>

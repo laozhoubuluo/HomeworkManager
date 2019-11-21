@@ -231,7 +231,7 @@ class Bila_base_class {
   // REmove Dir
   // src  http://andy.diimii.com/2009/10/php%E5%88%AA%E9%99%A4%E7%9B%AE%E9%8C%84%E8%B3%87%E6%96%99%E5%A4%BE-rmdirunlink/
   function delTree($dir) {  
-    $files = glob( $dir . '*', GLOB_MARK );  
+    $files = glob( $dir . '/*', GLOB_MARK );  
     foreach( $files as $file ){  
       if( substr( $file, -1 ) == '/' )  
         $this->delTree( $file );  

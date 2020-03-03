@@ -13,6 +13,8 @@ init 程式的初始档，包括建立smarty物件、资料库等。
 // 安全性检查
 if (__FILE__ == ''){ die('Fatal error code: 0'); }
 
+error_reporting(E_ALL ^ E_DEPRECATED);
+
 // ----==== 程式初始档开始 ====-----
 define('DB_NAME', "homework"); //资料库名
 

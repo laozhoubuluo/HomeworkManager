@@ -31,7 +31,7 @@
 <b>开放展示</b> {{if $b.display eq 1}}<img src="{{$smarty.const.SITE_URL}}images/manage/feed_star.png" alt="展示"  width="16" height="16" /> 开放访客参观{{else}}无{{/if}}<br />
 
 <tr><td align="center">
-<h3>档案若没有自动下载，<a href="{{$smarty.const.SITE_URL}}{{$smarty.const.UPDIR}}{{$b.fileName}}"> &gt;&gt; 请点选这裡 &lt;&lt;</a></h3>
+<h3>档案若没有自动下载，<a href="{{$smarty.const.SITE_URL}}homework.php?f=DlHwIframe&amp;c={{$c}}" target="_blank"> &gt;&gt; 请点选这裡 &lt;&lt;</a></h3>
 </td></tr></table>
 </div>
 <iframe name="dl1hw" width="0" height="0" marginwidth="0" marginheight="0" frameborder="0" scrolling="none" src="{{$smarty.const.SITE_URL}}homework.php?f=DlHwIframe&amp;c={{$c}}"></iframe>

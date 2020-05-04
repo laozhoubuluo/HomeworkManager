@@ -33,7 +33,7 @@ $ chmod 777 libs/templates_c
 
 ## **提示**
 
-1. 只有新版本支持PHP7，老版本只支持PHP5。
+1. 只有新版本支持PHP7，老版本只支持PHP5。建议使用PHP 7或更高版本，另外操作系统上需要安装zip软件包并在PHP上开启system函数和fileinfo扩展。
 2. 系统内置了默认的账号密码信息，请在程序部署后及时修改密码。
 
 管理员默认账号: default@note.tc.edu.tw
